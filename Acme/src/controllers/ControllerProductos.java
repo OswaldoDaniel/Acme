@@ -14,28 +14,30 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-//import java.sql.Connection; 
-//import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-//import java.sql.ResultSet; 
 import java.sql.ResultSetMetaData;
-//import java.sql.SQLException;
-//import java.sql.Statement; 
-//import java.util.ArrayList;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-//import javax.swing.ImageIcon;
-//import javax.swing.JFileChooser;
-//import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import models.ModelProductos;
 import views.ViewProductos;
+
+/*import java.sql.Connection; 
+import java.sql.DriverManager;
+import java.sql.ResultSet; 
+import java.sql.SQLException;
+import java.sql.Statement; 
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;*/
+
 /**
  *
  * @author usuario
  */
 public class ControllerProductos implements ActionListener{
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
-//     private TableConection conect=new TableConection();
+    //private TableConection conect=new TableConection();
     private ModelProductos modelProductos;
     private ViewProductos viewProductos;
     private String nombreArchivo;
@@ -177,14 +179,14 @@ public class ControllerProductos implements ActionListener{
     public void Editar() {
 
         String producto = this.viewProductos.jtfProducto.getText();
-        // String id_producto=this.viewProductos.jtfId.getText();
+        //String id_producto=this.viewProductos.jtfId.getText();
         String descripción = this.viewProductos.jTextAreaDescripción.getText();
         String precioCompra = this.viewProductos.jtfPrecioC.getText();
         String precioVenta = this.viewProductos.jtfPrecioV.getText();
         String existencia = this.viewProductos.jtfExistencia.getText();
 
         try {
-            // modelProductos.editar();
+            //modelProductos.editar();
 
             String idproducto = this.viewProductos.jtfId.getText();
 
@@ -205,7 +207,7 @@ public class ControllerProductos implements ActionListener{
         }
     }
 
-    public void ultimo() {
+    public void Ultimo() {
         modelProductos.moveLast();
         showValues();
     }
@@ -263,13 +265,11 @@ public class ControllerProductos implements ActionListener{
         } else if (ae.getSource() == this.viewProductos.jbtnEliminar) {
             Eliminar();
         } else if (ae.getSource() == this.viewProductos.jbtnUltimo) {
-            ultimo();
-
+            Ultimo();
         } else if (ae.getSource() == this.viewProductos.jbtnPrimero) {
             Primero();
         } else if (ae.getSource() == this.viewProductos.jbtnNuevo) {
             Nuevo();
         }
-
     }
 }
