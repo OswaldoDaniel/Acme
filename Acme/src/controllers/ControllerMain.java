@@ -15,13 +15,13 @@ import views.ViewMain;
  *
  * @author RoseLandjlord
  */
-public class ControllerMAin implements ActionListener {
+public class ControllerMain implements ActionListener {
 
     private ModelMain modelMain;
     private ViewMain viewMain;
     JPanel views[];
 
-    public ControllerMAin(ModelMain modelMain, ViewMain viewMain, JPanel views[]) {
+    public ControllerMain(ModelMain modelMain, ViewMain viewMain, JPanel views[]) {
         this.viewMain = viewMain;
         this.modelMain = modelMain;
         this.views = views;

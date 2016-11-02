@@ -36,7 +36,7 @@ public class Main {
 
         ViewMain viewMain = new ViewMain();
         ModelMain modelMain = new ModelMain();
-        ControllerMAin controllerMain = new ControllerMAin(modelMain, viewMain, view);
+        ControllerMain controllerMain = new ControllerMain(modelMain, viewMain, view);
         controllerMain.init_view();
     }
 }

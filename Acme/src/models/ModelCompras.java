@@ -4,14 +4,16 @@
  * and open the template in the editor.
  */
 package models;
+
 import sax.DBConnection;
+
 /**
  *
  * @author usuario
  */
-public class ModelVentas {
+public class ModelCompras {
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
-    private int numcliente;
+    private int numProveedor;
     private int numProducto;
     private int Cantidad;
     private int TotalPrecProd;
@@ -21,17 +23,17 @@ public class ModelVentas {
     public double subtotal;
     
     /**
-     * @return the numcliente
+     * @return the numProveedor
      */
-    public int getNumcliente() {
-        return numcliente;
+    public int getNumproveedor() {
+        return numProveedor;
     }
 
     /**
-     * @param numcliente the numcliente to set
+     * @param numProveedor the numProveedore to set
      */
-    public void setNumcliente(int numcliente) {
-        this.numcliente = numcliente;
+    public void setNumproveedor(int numProveedor) {
+        this.numProveedor = numProveedor;
     }
 
     /**
@@ -111,7 +113,7 @@ public class ModelVentas {
     }
     
     public void setValues(){
-        this.numcliente = conection.getInteger("id_cliente");
+        this.numProveedor = conection.getInteger("id_proveedor");
         this.fecha = conection.getString("fecha");
         this.Cantidad = conection.getInteger("producto");
         this.numProducto = conection.getInteger("producto");
@@ -128,7 +130,4 @@ public class ModelVentas {
         total = subtotal +(subtotal*0.16);
         return total;
     }
-
-    
-    
 }
