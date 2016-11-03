@@ -12,21 +12,21 @@ import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sax.DBConnection;
-import views.ViewCompras;
+import views.viewCompras;
 import models.ModelCompras;
 /**
  *
  * @author usuario
  */
 public class ControllerCompras implements ActionListener{
-    ViewCompras viewCompras;
+    viewCompras viewCompras;
     ModelCompras modelCompras;
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     PreparedStatement ps;
     ResultSetMetaData rsm;
     DefaultTableModel dtm;
     
-    public ControllerCompras(ViewCompras viewCompras,ModelCompras modelCompras) {
+    public ControllerCompras(viewCompras viewCompras,ModelCompras modelCompras) {
         this.viewCompras = viewCompras;
         this.viewCompras = viewCompras;
         this.viewCompras.jbAdd.addActionListener(this);

@@ -234,7 +234,7 @@ public class ModelClientes {
     
     public void borrar(){
         id = JOptionPane.showInputDialog("Dame la id del cliente","");
-        conection.executeUpdate("delete from productos where id_producto=" + id);
+        conection.executeUpdate("delete from cliente where id_cliente=" + id);
     }
     
     public void editar(){

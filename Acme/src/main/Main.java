@@ -34,7 +34,7 @@ public class Main {
         ControllerClientes controllerClientes = new ControllerClientes(modelClientes, viewClientes);
         
         ModelCompras modelCompras = new ModelCompras();
-        ViewCompras viewCompras = new ViewCompras();
+        viewCompras viewCompras = new viewCompras();
         ControllerCompras controllerCompras = new ControllerCompras(viewCompras, modelCompras);
         
         ModelVentas modelVentas = new ModelVentas();
