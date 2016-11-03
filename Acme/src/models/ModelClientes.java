@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package models;
+import javax.swing.JOptionPane;
 import sax.DBConnection;
 /**
  *
@@ -11,7 +12,7 @@ import sax.DBConnection;
  */
 public class ModelClientes {
     private DBConnection conection = new DBConnection(3306,"localhost", "acme", "root", "");
-    public int id;
+    public String  id;
     private String nombre;
     private String apMat;
     private String apPat;
@@ -206,7 +207,7 @@ public class ModelClientes {
     }
     
     public void setValues(){
-        this.id = conection.getInteger("id_cliente");
+        
         this.nombre = conection.getString("nombre");
         this.apMat = conection.getString("apellido_mat");
         this.apPat = conection.getString("apellido_pat");
@@ -219,4 +220,25 @@ public class ModelClientes {
         this.ciudad = conection.getString("ciudad");
         this.estado = conection.getString("Estado");
     }
+    
+    
+    public void guardar(){
+        try {
+            String sql = "insert into clientes(nombre,ap_paterno,ap_paterno,telefono,email,rfc,calle,no,colonia,ciudad,estado) values ('"+"','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+",'"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
+            conection.executeUpdate(sql);
+            conection.executeQuery("Select * from clientes");
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, "No hay cliente");
+        }
+    }
+    
+    public void borrar(){
+        id = JOptionPane.showInputDialog("Dame la id del cliente","");
+        conection.executeUpdate("delete from productos where id_producto=" + id);
+    }
+    
+    public void editar(){
+        conection.executeUpdate("update cliente set nombre='"+nombre+ "',ap_materno='"+apMat+"',ap_paterno='"+apPat+"',telefono='"+telefono+"',email='"+email+"',rfc='"+rfc+"',calle='"+calle+"',no='"+numero+"',colonia='"+colonia+"',ciudad='"+ciudad+"',estado='"+estado+"'where id_producto='"+ id+"';");
+    }
+    
 }

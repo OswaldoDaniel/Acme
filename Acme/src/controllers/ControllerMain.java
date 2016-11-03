@@ -58,20 +58,42 @@ public class ControllerMain implements ActionListener {
         this.viewMain.repaint();
 
     }
+    
+    public void actionPerfomedCliente() {
+        this.viewMain.setContentPane(views[3]);
+        this.viewMain.revalidate();
+        this.viewMain.repaint();
+
+    }
+    
+    public void actionPerfomedCompras() {
+        this.viewMain.setContentPane(views[4]);
+        this.viewMain.revalidate();
+        this.viewMain.repaint();
+
+    }
+    
+    public void actionPerfomedVentas() {
+        this.viewMain.setContentPane(views[5]);
+        this.viewMain.revalidate();
+        this.viewMain.repaint();
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == this.viewMain.jMenuItemProductos) {
             actionPerfomedProductos();
-
         } else if (ae.getSource() == this.viewMain.jMenuItemIniciar) {
             actionPerfomedLogin();
-
         } else if (ae.getSource() == this.viewMain.jMenuItemUsuario) {
             actionPerfomedUsuario();
-
+        } else if (ae.getSource() == this.viewMain.jmiCliente){
+            actionPerfomedCliente();
+        } else if (ae.getSource()== this.viewMain.jmiCompras){
+            actionPerfomedCompras();
+        } else if (ae.getSource()== this.viewMain.jmiVentas){
+            actionPerfomedVentas();
         }
-
     }
-
 }

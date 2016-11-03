@@ -9,12 +9,12 @@ package views;
  *
  * @author usuario
  */
-public class viewClientes extends javax.swing.JPanel {
+public class ViewClientes extends javax.swing.JPanel {
 
     /**
      * Creates new form viewClientes
      */
-    public viewClientes() {
+    public ViewClientes() {
         initComponents();
     }
 

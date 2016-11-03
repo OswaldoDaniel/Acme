@@ -38,6 +38,7 @@ public class ViewMain extends javax.swing.JFrame {
         jMenuItemUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemProductos = new javax.swing.JMenuItem();
+        jmiCliente = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jmiCompras = new javax.swing.JMenuItem();
         jmiVentas = new javax.swing.JMenuItem();
@@ -76,6 +77,9 @@ public class ViewMain extends javax.swing.JFrame {
 
         jMenuItemProductos.setText("Productos");
         jMenu2.add(jMenuItemProductos);
+
+        jmiCliente.setText("Clientes");
+        jMenu2.add(jmiCliente);
 
         jMenuBar1.add(jMenu2);
 
@@ -173,6 +177,7 @@ public class ViewMain extends javax.swing.JFrame {
     public javax.swing.JMenuItem jMenuItemIniciar;
     public javax.swing.JMenuItem jMenuItemProductos;
     public javax.swing.JMenuItem jMenuItemUsuario;
+    public javax.swing.JMenuItem jmiCliente;
     public javax.swing.JMenuItem jmiCompras;
     public javax.swing.JMenuItem jmiReporteClientes;
     public javax.swing.JMenuItem jmiReporteCompras;
