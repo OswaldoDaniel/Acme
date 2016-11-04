@@ -225,7 +225,8 @@ public class ModelClientes {
     
     public void guardar(){
         try {
-            String sql = "insert into clientes(nombre,ap_paterno,ap_paterno,telefono,email,rfc,calle,no,colonia,ciudad,estado) values ('"+"','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+",'"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
+            id = JOptionPane.showInputDialog("Dame la id del cliente","");
+            String sql = "insert into clientes(id_cliente,nombre,apellido_pat,apellido_mat,telefono,email,rfc,calle,no,colonia,ciudadad,estado) values ('"+id+"',','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+",'"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
             conection.executeUpdate(sql);
             conection.executeQuery("Select * from clientes");
         } catch (Exception err) {
