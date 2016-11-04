@@ -239,6 +239,7 @@ public class ModelClientes {
     }
     
     public void editar(){
+        id = JOptionPane.showInputDialog("Dame la id del cliente","");
         conection.executeUpdate("update cliente set nombre='"+nombre+ "',ap_materno='"+apMat+"',ap_paterno='"+apPat+"',telefono='"+telefono+"',email='"+email+"',rfc='"+rfc+"',calle='"+calle+"',no='"+numero+"',colonia='"+colonia+"',ciudad='"+ciudad+"',estado='"+estado+"'where id_producto='"+ id+"';");
     }
     
