@@ -320,4 +320,22 @@ public class Main {
 }
 
 
+ private void showValues(){
+        viewClientes.jtfCalle.setText(""+modelClientes.getCalle());
+        viewClientes.jtfCity.setText(""+modelClientes.getCiudad());
+        viewClientes.jtfColony.setText(""+modelClientes.getColonia());
+        viewClientes.jtfEmail.setText(""+modelClientes.getEmail());
+        viewClientes.jtfMatLastName.setText(""+modelClientes.getApMat());
+        viewClientes.jtfName.setText(""+modelClientes.getNombre());
+       
+        viewClientes.jtfPatLastName.setText(""+modelClientes.getApPat());
+        
+         viewClientes.jtfRFC.setText(""+modelClientes.getRfc());
+        viewClientes.jtfState.setText(""+modelClientes.getEstado());
+        viewClientes.jtfTelephone.setText(""+modelClientes.getTelefono());
+      
+       
+        
+       
+    }
 
