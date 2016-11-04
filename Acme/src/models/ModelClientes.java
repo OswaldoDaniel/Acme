@@ -5,6 +5,7 @@
  */
 package models;
 import javax.swing.JOptionPane;
+
 import sax.DBConnection;
 /**
  *
@@ -201,7 +202,7 @@ public class ModelClientes {
     }
     
     public void initValues(){
-        conection.executeQuery("SELECT * FROM clientes;");
+        conection.executeQuery("SELECT * FROM cliente;");
         conection.moveNext();
         setValues();
     }

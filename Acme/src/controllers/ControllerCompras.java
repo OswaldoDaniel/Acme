@@ -5,10 +5,15 @@
  */
 package controllers;
 
+import static controllers.ControllerVentas.s;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sax.DBConnection;
@@ -22,9 +27,11 @@ public class ControllerCompras implements ActionListener{
     viewCompras viewCompras;
     ModelCompras modelCompras;
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
+    Connection cn;
     PreparedStatement ps;
+    static Statement s;
+    ResultSet rs;
     ResultSetMetaData rsm;
-    DefaultTableModel dtm;
     
     public ControllerCompras(viewCompras viewCompras,ModelCompras modelCompras) {
         this.viewCompras = viewCompras;
@@ -57,7 +64,34 @@ public class ControllerCompras implements ActionListener{
             JOptionPane.showMessageDialog(this.viewCompras, "No hay objeto seleccionado");
         }
     }
+     public void Tabla() {
+        DefaultTableModel dtm = new DefaultTableModel();
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            this.viewCompras.jTable1.setModel(modelo);
+            String url = "jdbc:mysql://localhost:3306/acme?zeroDateTimeBehavior=convertToNull";
+            cn = DriverManager.getConnection(url, "root", "");
+            s = cn.createStatement();
+            rs = s.executeQuery("select * from compras");
+            ResultSetMetaData rsMd = rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+            cn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
+    }
     public void Primero() {
         modelCompras.moveFirst();
     }

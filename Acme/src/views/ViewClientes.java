@@ -63,6 +63,7 @@ public class ViewClientes extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(150, 191, 209));
 
+        jtBusqueda.setAutoCreateColumnsFromModel(false);
         jtBusqueda.setBackground(new java.awt.Color(151, 190, 209));
         jtBusqueda.setFont(new java.awt.Font("Lucida Console", 2, 16)); // NOI18N
         jtBusqueda.setModel(new javax.swing.table.DefaultTableModel(

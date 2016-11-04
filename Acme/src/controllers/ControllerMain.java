@@ -5,11 +5,12 @@
  */
 package controllers;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
-import models.ModelMain;
-import views.ViewMain;
+import models.*;
+import views.*;
 
 /**
  *
@@ -19,15 +20,43 @@ public class ControllerMain implements ActionListener {
 
     private ModelMain modelMain;
     private ViewMain viewMain;
-    JPanel views[];
-
-    public ControllerMain(ModelMain modelMain, ViewMain viewMain, JPanel views[]) {
+    
+    
+    ModelClientes modelClientes;
+    ViewClientes viewClientes;
+    
+    ModelCompras modelCompras;
+    viewCompras viewCompras;
+    
+    ModelProductos modelProductos;
+    ViewProductos viewProductos;
+    
+    ModelLogin modelLogin;
+    ViewIniciarSecion viewIniciarSecion;
+    
+    ModelVentas modelVentas;
+    ViewVentas viewVentas;
+    
+    ModelUsuario modelUsuario;
+    ViewUsuario viewUsuario;
+    
+    public ControllerMain(ModelMain modelMain, ModelClientes modelClientes, ModelCompras modelCompras,ModelProductos modelProductos,ModelLogin modelLogin, ModelVentas modelVentas,ModelUsuario modelUsuario, ViewMain viewMain,ViewClientes viewClientes,viewCompras viewCompras,ViewProductos viewProductos, ViewIniciarSecion viewIniciarSecion, ViewVentas viewVentas, ViewUsuario viewUsuario) {
         this.viewMain = viewMain;
         this.modelMain = modelMain;
-        this.views = views;
+        this.modelProductos = modelProductos;
+        this.viewProductos = viewProductos;
+        this.modelLogin = modelLogin;
+        this.viewIniciarSecion = viewIniciarSecion;
+        this.modelVentas = modelVentas;
+        this.viewVentas = viewVentas;
+        this.modelUsuario = modelUsuario;
+        this.viewUsuario = viewUsuario;
         this.viewMain.jMenuItemProductos.addActionListener(this);
         this.viewMain.jMenuItemIniciar.addActionListener(this);
         this.viewMain.jMenuItemUsuario.addActionListener(this);
+        this.viewMain.jmiCliente.addActionListener(this);
+        this.viewMain.jmiCompras.addActionListener(this);
+        this.viewMain.jmiVentas.addActionListener(this);
 
     }
 
@@ -39,42 +68,43 @@ public class ControllerMain implements ActionListener {
     }
 
     public void actionPerfomedProductos() {
-        this.viewMain.setContentPane(views[0]);
+        this.viewMain.setContentPane(viewProductos);
+        //cc.viewClientes.setVisible(true);
         this.viewMain.revalidate();
         this.viewMain.repaint();
 
     }
 
     public void actionPerfomedLogin() {
-        this.viewMain.setContentPane(views[1]);
+        this.viewMain.setContentPane(viewIniciarSecion);
         this.viewMain.revalidate();
         this.viewMain.repaint();
 
     }
 
     public void actionPerfomedUsuario() {
-        this.viewMain.setContentPane(views[2]);
+        this.viewMain.setContentPane(viewUsuario);
         this.viewMain.revalidate();
         this.viewMain.repaint();
 
     }
     
     public void actionPerfomedCliente() {
-        this.viewMain.setContentPane(views[3]);
+        this.viewMain.setContentPane(this.viewClientes);
         this.viewMain.revalidate();
         this.viewMain.repaint();
 
     }
     
     public void actionPerfomedCompras() {
-        this.viewMain.setContentPane(views[4]);
+        this.viewMain.setContentPane(viewCompras);
         this.viewMain.revalidate();
         this.viewMain.repaint();
 
     }
     
     public void actionPerfomedVentas() {
-        this.viewMain.setContentPane(views[5]);
+        this.viewMain.setContentPane(viewVentas);
         this.viewMain.revalidate();
         this.viewMain.repaint();
 

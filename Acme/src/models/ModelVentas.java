@@ -17,8 +17,8 @@ public class ModelVentas {
     private int TotalPrecProd;
     private String fecha;
     
-    public double total;
-    public double subtotal;
+    public float total;
+    public float subtotal;
     
     /**
      * @return the numcliente
@@ -113,19 +113,19 @@ public class ModelVentas {
     public void setValues(){
         this.numcliente = conection.getInteger("id_cliente");
         this.fecha = conection.getString("fecha");
-        this.Cantidad = conection.getInteger("producto");
+        this.Cantidad = conection.getInteger("cantidad");
         this.numProducto = conection.getInteger("producto");
         this.fecha = conection.getString("fecha");
-        this.TotalPrecProd = conection.getInteger("Total_precio_producto");
+        this.TotalPrecProd = conection.getInteger("total_producto");
     }
     
-    public double getSubtotal(){
+    public float gSubtotal(){
         subtotal = Cantidad * TotalPrecProd;
         return subtotal;
     }
     
-    public double getTotal(){
-        total = subtotal +(subtotal*0.16);
+    public float gTotal(){
+        total = subtotal;
         return total;
     }
 

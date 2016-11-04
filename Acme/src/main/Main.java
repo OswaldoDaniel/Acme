@@ -41,17 +41,11 @@ public class Main {
         ViewVentas viewVentas = new ViewVentas();
         ControllerVentas controllerVentas = new ControllerVentas(viewVentas, modelVentas);
 
-        JPanel view[] = new JPanel[11];
-        view[0] = viewProductos;
-        view[1] = viewIniciarSecion;
-        view[2] = viewUsuario;
-        view[3] = viewClientes;
-        view[4] = viewCompras;
-        view[5] = viewVentas;
+        
 
         ViewMain viewMain = new ViewMain();
         ModelMain modelMain = new ModelMain();
-        ControllerMain controllerMain = new ControllerMain(modelMain, viewMain, view);
+        ControllerMain controllerMain = new ControllerMain(modelMain, modelClientes, modelCompras, modelProductos, modelLogin, modelVentas, modelUsuario, viewMain, viewClientes, viewCompras, viewProductos, viewIniciarSecion, viewVentas, viewUsuario);
         controllerMain.init_view();
     }
 }

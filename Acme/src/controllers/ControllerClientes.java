@@ -12,14 +12,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-//import java.sql.Connection; 
-//import java.sql.DriverManager;
+import java.sql.Connection; 
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-//import java.sql.ResultSet; 
+import java.sql.ResultSet; 
 import java.sql.ResultSetMetaData;
 import javax.swing.table.DefaultTableModel;
-//import java.sql.SQLException;
-//import java.sql.Statement; 
+import java.sql.SQLException;
+import java.sql.Statement; 
 //import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,11 +34,12 @@ import views.ViewClientes;
  */
 public class ControllerClientes implements ActionListener{
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
+    Connection cn;
     PreparedStatement ps;
-
+    static Statement s;
+    ResultSet rs;
     ResultSetMetaData rsm;
-    DefaultTableModel dtm;
-
+    
     ModelClientes modelClientes;
     ViewClientes viewClientes;
     
@@ -72,20 +73,55 @@ public class ControllerClientes implements ActionListener{
     
     public void init_view() {
         this.viewClientes.setVisible(true);
+        this.modelClientes.initValues();
+        Tabla();
+    }
+    
+    public void Tabla() {
+        DefaultTableModel dtm = new DefaultTableModel();
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            this.viewClientes.jtBusqueda.setModel(modelo);
+            String url = "jdbc:mysql://localhost:3306/acme?zeroDateTimeBehavior=convertToNull";
+            cn = DriverManager.getConnection(url, "root", "");
+            s = cn.createStatement();
+            rs = s.executeQuery("select * from ventas");
+            ResultSetMetaData rsMd = rs.getMetaData();
+            int cantidadColumnas = rsMd.getColumnCount();
+            for (int i = 1; i <= cantidadColumnas; i++) {
+                modelo.addColumn(rsMd.getColumnLabel(i));
+            }
+            while (rs.next()) {
+                Object[] fila = new Object[cantidadColumnas];
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+            rs.close();
+            cn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
     public void Primero() {
         modelClientes.moveFirst();
+        this.modelClientes.initValues();
     }
 
     public void Siguiente() {
        modelClientes.moveNext();
+       this.modelClientes.initValues();
     }
 
     public void Anterior() {
         modelClientes.movePrevious();
+        this.modelClientes.initValues();
     }
     public void Ultimo() {
         modelClientes.moveLast();
+        this.modelClientes.initValues();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
