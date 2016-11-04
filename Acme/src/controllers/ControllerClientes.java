@@ -81,11 +81,12 @@ public class ControllerClientes implements ActionListener{
         DefaultTableModel dtm = new DefaultTableModel();
         try {
             DefaultTableModel modelo = new DefaultTableModel();
+            String id = JOptionPane.showInputDialog(null, "dame el id del cliente");
             this.viewClientes.jtBusqueda.setModel(modelo);
             String url = "jdbc:mysql://localhost:3306/acme?zeroDateTimeBehavior=convertToNull";
             cn = DriverManager.getConnection(url, "root", "");
             s = cn.createStatement();
-            rs = s.executeQuery("select * from ventas");
+            rs = s.executeQuery("select * from cliente where id_cliente = '"+id+"'");
             ResultSetMetaData rsMd = rs.getMetaData();
             int cantidadColumnas = rsMd.getColumnCount();
             for (int i = 1; i <= cantidadColumnas; i++) {

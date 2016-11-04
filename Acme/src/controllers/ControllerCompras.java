@@ -58,7 +58,7 @@ public class ControllerCompras implements ActionListener{
             //System.out.println("SQL " + sql); //Esto para que?
             conection.executeUpdate(sql);
             conection.executeUpdate(sql2);
-            conection.executeQuery("Select * from ventas");
+            conection.executeQuery("Select * from compras");
             Primero();
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this.viewCompras, "No hay objeto seleccionado");
