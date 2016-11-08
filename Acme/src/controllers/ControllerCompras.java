@@ -13,7 +13,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sax.DBConnection;
@@ -33,12 +36,15 @@ public class ControllerCompras implements ActionListener{
     ResultSet rs;
     ResultSetMetaData rsm;
     
+    
+    
     public ControllerCompras(viewCompras viewCompras,ModelCompras modelCompras) {
         this.viewCompras = viewCompras;
         this.viewCompras = viewCompras;
         this.viewCompras.jbAdd.addActionListener(this);
         this.viewCompras.jbCancel.addActionListener(this);
         this.viewCompras.jbNew.addActionListener(this);
+        this.viewCompras.setVisible(true);
     }
     
     public void Guardar() {
@@ -52,10 +58,10 @@ public class ControllerCompras implements ActionListener{
             String subtotal = "" + this.modelCompras.getSubtotal();
             String cant =this.viewCompras.jtfCantidad.getText();
             String tot = this.viewCompras.jtfTotPrecProd.getText();
-            String sql = "insert into compras(fecha,id_proveedor,subtotal,num,total) values (" + "'" + fecha + "','" + proveedor + "','" +subtotal + "','" +  total+ "');";
+            String precio = this.viewCompras.jtfPrecio.getText();
+            String sql = "insert into compras(fecha,id_proveedor,subtotal,num,total) values (" + "'" + fecha + "','" + proveedor + "','" +subtotal + "','" +  total+ "','"+precio+"');";
             String sql2 = "insert into detalle_compra(id_compra,id_producto,cantidad,total_precio_producto) values ("+"'"+"','"+producto+"','"+cant+"','"+tot+"');";
-            //System.out.println("Nombre " + producto); //Esto para que?
-            //System.out.println("SQL " + sql); //Esto para que?
+            
             conection.executeUpdate(sql);
             conection.executeUpdate(sql2);
             conection.executeQuery("Select * from compras");
@@ -64,33 +70,32 @@ public class ControllerCompras implements ActionListener{
             JOptionPane.showMessageDialog(this.viewCompras, "No hay objeto seleccionado");
         }
     }
-     public void Tabla() {
-        DefaultTableModel dtm = new DefaultTableModel();
+    public void Tabla() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
-            this.viewCompras.jTable1.setModel(modelo);
-            String url = "jdbc:mysql://localhost:3306/acme?zeroDateTimeBehavior=convertToNull";
-            cn = DriverManager.getConnection(url, "root", "");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            modelo.addColumn("compra");
+            modelo.addColumn("fecha");
+            modelo.addColumn("proveedor");
+            modelo.addColumn("producto");
+            modelo.addColumn("cantidad");
+            this.viewCompras.jtBuscaClientes.setModel(modelo);
+            String datos[] = new String[5];
             s = cn.createStatement();
-            rs = s.executeQuery("select * from compras");
-            ResultSetMetaData rsMd = rs.getMetaData();
-            int cantidadColumnas = rsMd.getColumnCount();
-            for (int i = 1; i <= cantidadColumnas; i++) {
-                modelo.addColumn(rsMd.getColumnLabel(i));
-            }
+            rs = s.executeQuery("SELECT compras.id_compra,compras.fecha,proveedores.nombre,productos.producto,detalle_compra.cantidad FROM proveedores, compras, detalle_compra, productos WHERE proveedores.id_proveedor = compras.id_proveedor AND compras.id_compra = detalle_compra.id_compra AND productos.id_producto = detalle_compra.id_producto");
+            rsm = rs.getMetaData();
             while (rs.next()) {
-                Object[] fila = new Object[cantidadColumnas];
-                for (int i = 0; i < cantidadColumnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                modelo.addRow(fila);
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
             }
-            rs.close();
-            cn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            this.viewCompras.jtBuscaClientes.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     public void Primero() {
         modelCompras.moveFirst();

@@ -8,12 +8,11 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import views.ViewVentas;
 import models.ModelVentas;
 import sax.DBConnection;
@@ -33,6 +32,7 @@ public class ControllerVentas implements ActionListener {
     static Statement s;
     ResultSet rs;
     ResultSetMetaData rsm;
+    
 
     public ControllerVentas(ViewVentas viewVentas, ModelVentas modelVentas) {
         this.viewVentas = viewVentas;
@@ -40,6 +40,7 @@ public class ControllerVentas implements ActionListener {
         this.viewVentas.jbAdd.addActionListener(this);
         this.viewVentas.jbCancel.addActionListener(this);
         this.viewVentas.jbNew.addActionListener(this);
+        Tabla();
     }
 
     public void Guardar() {
@@ -69,32 +70,31 @@ public class ControllerVentas implements ActionListener {
     }
 
     public void Tabla() {
-        DefaultTableModel dtm = new DefaultTableModel();
         try {
             DefaultTableModel modelo = new DefaultTableModel();
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            modelo.addColumn("venta");
+            modelo.addColumn("fecha");
+            modelo.addColumn("cliente");
+            modelo.addColumn("producto");
+            modelo.addColumn("cantidad");
             this.viewVentas.jTable1.setModel(modelo);
-            String url = "jdbc:mysql://localhost:3306/acme?zeroDateTimeBehavior=convertToNull";
-            cn = DriverManager.getConnection(url, "root", "");
+            String datos[] = new String[5];
             s = cn.createStatement();
-            rs = s.executeQuery("select * from ventas");
-            ResultSetMetaData rsMd = rs.getMetaData();
-            int cantidadColumnas = rsMd.getColumnCount();
-            for (int i = 1; i <= cantidadColumnas; i++) {
-                modelo.addColumn(rsMd.getColumnLabel(i));
-            }
+            rs = s.executeQuery("SELECT ventas.id_venta,ventas.fecha,cliente.nombre,productos.producto,detalle_venta.cantidad FROM cliente, ventas, detalle_venta, productos WHERE cliente.id_cliente = ventas.id_cliente AND ventas.id_venta = detalle_venta.id_venta AND productos.id_producto = detalle_venta.id_producto");
+            rsm = rs.getMetaData();
             while (rs.next()) {
-                Object[] fila = new Object[cantidadColumnas];
-                for (int i = 0; i < cantidadColumnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                modelo.addRow(fila);
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
             }
-            rs.close();
-            cn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            this.viewVentas.jTable1.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public void Primero() {
@@ -144,13 +144,10 @@ public class ControllerVentas implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewVentas.jbAdd) {
             Guardar();
-            Tabla();
         } else if (e.getSource() == this.viewVentas.jbNew) {
             Nueva();
-            Tabla();
         } else if (e.getSource() == this.viewVentas.jbCancel) {
             Eliminar();
-            Tabla();
         }
     }
 

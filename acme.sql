@@ -107,7 +107,6 @@ CREATE TABLE IF NOT EXISTS `detalle_compra` (
   `id_producto` int(10) NOT NULL,
   `cantidad` int(20) NOT NULL,
   `total_producto` int(20) NOT NULL,
-  `precio` float NOT NULL,
   PRIMARY KEY (`id_detalle_compra`),
   KEY `id_compra` (`id_compra`,`id_producto`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -129,7 +128,6 @@ CREATE TABLE IF NOT EXISTS `detalle_venta` (
   `id_producto` int(10) NOT NULL,
   `cantidad` int(20) NOT NULL,
   `total_producto` int(20) NOT NULL,
-  `precio` float NOT NULL,
   PRIMARY KEY (`id_detalle_venta`),
   KEY `id_venta` (`id_venta`,`id_producto`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

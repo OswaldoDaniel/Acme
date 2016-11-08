@@ -27,10 +27,10 @@ import javax.swing.JOptionPane;
 public class ControllerLogin implements ActionListener {
 
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
-    private ModelLogin modelLogin;
-    private ViewIniciarSecion viewIniciarSecion;
-    private ViewProductos viewProductos;
-    private ViewMain viewMain;
+    ModelLogin modelLogin;
+    ViewIniciarSecion viewIniciarSecion;
+    ViewProductos viewProductos;
+    ViewMain viewMain;
     private Statement st;
     private ResultSet rs;
     // private ResultSet rs;

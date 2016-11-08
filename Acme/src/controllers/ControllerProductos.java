@@ -21,8 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import models.ModelProductos;
 import views.ViewProductos;
 
-/*import java.sql.Connection; 
-import java.sql.DriverManager;
+import java.sql.*; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+/*import java.sql.DriverManager;
 import java.sql.ResultSet; 
 import java.sql.SQLException;
 import java.sql.Statement; 
@@ -38,16 +40,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;*/
 public class ControllerProductos implements ActionListener{
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     //private TableConection conect=new TableConection();
-    private ModelProductos modelProductos;
-    private ViewProductos viewProductos;
+    ModelProductos modelProductos;
+    ViewProductos viewProductos;
     private String nombreArchivo;
     private String ruta;
     private String nuevaRuta;
     PreparedStatement ps;
-
     ResultSetMetaData rsm;
     DefaultTableModel dtm;
-
+    Connection cn;
+    ResultSet rs;
+    Statement s;
     public ControllerProductos(ModelProductos modelProductos, ViewProductos viewProductos) {
         this.modelProductos = modelProductos;
         this.viewProductos = viewProductos;
@@ -58,31 +61,23 @@ public class ControllerProductos implements ActionListener{
         this.viewProductos.jbtnPrimero.addActionListener(this);
         this.viewProductos.jbtnSiguiente.addActionListener(this);
         this.viewProductos.jbtnUltimo.addActionListener(this);
-
         this.viewProductos.jbtnNuevo.addActionListener(this);
         this.viewProductos.jbtnAnter.addActionListener(this);
         this.viewProductos.setVisible(true);
-
         init_view();
-
     }
 
     public void init_view() {
-
         modelProductos.initValues();
         showValues();
-        this.viewProductos.jtfId.setVisible(false);
-
     }
 
     private void showValues() {
-        viewProductos.jtfId.setText("" + modelProductos.getIdProducto());
         viewProductos.jtfProducto.setText("" + modelProductos.getProducto());
         viewProductos.jtfPrecioC.setText(modelProductos.getPrecioCompra());
         viewProductos.jtfPrecioV.setText(modelProductos.getPrecioVenta());
         viewProductos.jTextAreaDescripción.setText(modelProductos.getDescripcion());
         viewProductos.jtfExistencia.setText(modelProductos.getExistencia());
-
     }
 
     /*public static void copiarArchivo(String origen, String destino) {
@@ -103,40 +98,31 @@ public class ControllerProductos implements ActionListener{
         this.viewProductos.jbtnAgregar.setEnabled(todos);
         this.viewProductos.jbtnAnter.setEnabled(todos);
         this.viewProductos.jbtnBusacr.setEnabled(todos);
-
         this.viewProductos.jbtnEditar.setEnabled(todos);
         this.viewProductos.jbtnEliminar.setEnabled(!todos);
         this.viewProductos.jbtnPrimero.setEnabled(!todos);
         this.viewProductos.jbtnSiguiente.setEnabled(todos);
         this.viewProductos.jbtnUltimo.setEnabled(todos);
-
     }
 
     public void Guardar() {
         try {
             String producto = this.viewProductos.jtfProducto.getText();
-            String idproducto = this.viewProductos.jtfId.getText();
             //String id_producto=this.viewProductos.jLId.getText();
             String descripción = this.viewProductos.jTextAreaDescripción.getText();
             String precioCompra = this.viewProductos.jtfPrecioC.getText();
             String precioVenta = this.viewProductos.jtfPrecioV.getText();
             String existencia = this.viewProductos.jtfExistencia.getText();
-
             String sql = "insert into productos(producto,descripción,precio_compra,precio_venta,existencia) values (" + "'" + producto + "','" + descripción + "','" + precioCompra + "','" + precioVenta + "','" + existencia + "');";
-
             System.out.println("Nombre " + producto);
             System.out.println("SQL " + sql);
-
             conection.executeUpdate(sql);
-
             conection.executeQuery("Select * from productos");
             Primero();
             showValues();
-
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this.viewProductos, "No hay producto seleccionado");
         }
-
     }
 
     public void Primero() {
@@ -157,19 +143,14 @@ public class ControllerProductos implements ActionListener{
 
     public void Eliminar() {
         try {
-            String idproducto = this.viewProductos.jtfId.getText();
-
-            conection.executeUpdate("delete from productos where id_producto=" + idproducto);
+            String idproducto = JOptionPane.showInputDialog("Dame el id del producto","");
+            conection.executeUpdate("delete from productos where id_producto=" );
             conection.executeQuery("Select * from productos order by id_producto");
-
             this.viewProductos.jtfProducto.setText("");
-
             this.viewProductos.jTextAreaDescripción.setText("");
             this.viewProductos.jtfPrecioC.setText("");
-
             this.viewProductos.jtfPrecioV.setText("");
             this.viewProductos.jtfExistencia.setText("");
-
             //this.viewProductos.JlImagen.setIcon(null);
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
@@ -177,30 +158,21 @@ public class ControllerProductos implements ActionListener{
     }
 
     public void Editar() {
-
         String producto = this.viewProductos.jtfProducto.getText();
         //String id_producto=this.viewProductos.jtfId.getText();
         String descripción = this.viewProductos.jTextAreaDescripción.getText();
         String precioCompra = this.viewProductos.jtfPrecioC.getText();
         String precioVenta = this.viewProductos.jtfPrecioV.getText();
         String existencia = this.viewProductos.jtfExistencia.getText();
-
         try {
             //modelProductos.editar();
-
-            String idproducto = this.viewProductos.jtfId.getText();
-
+            String idproducto = JOptionPane.showInputDialog("Dame el id del producto","");
             conection.executeUpdate("update productos set producto='" + producto + "',descripción='" + descripción + "',precio_compra='" + precioCompra + "',precio_venta='" + precioVenta + "',existencia='" + existencia + "' where id_producto='" + idproducto + "';");
-
-            this.viewProductos.jtfId.setText("");
             this.viewProductos.jtfProducto.setText("");
-
             this.viewProductos.jTextAreaDescripción.setText("");
             this.viewProductos.jtfPrecioC.setText("");
-
             this.viewProductos.jtfPrecioV.setText("");
             this.viewProductos.jtfExistencia.setText("");
-
             //this.rs.first();   
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, "No hay producto seleccionado ");
@@ -243,16 +215,49 @@ public class ControllerProductos implements ActionListener{
     }*/
     public void Nuevo() {
         this.viewProductos.jtfProducto.setText("");
-
         this.viewProductos.jTextAreaDescripción.setText("");
         this.viewProductos.jtfPrecioC.setText("");
-
         this.viewProductos.jtfPrecioV.setText("");
         this.viewProductos.jtfExistencia.setText("");
-
         //this.viewProductos.JlImagen.setIcon(null);
     }
 
+    public void Tabla() {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            modelo.addColumn("Id");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("P_compra");
+            modelo.addColumn("P_venta");
+            modelo.addColumn("Existencias");
+            this.viewProductos.jTable1.setModel(modelo);
+            String datos[] = new String[6];
+            String sql = "";
+            if (this.viewProductos.jcbSpecific.isSelected()){
+                String producto = JOptionPane.showInputDialog("Deme el nombre del producto","");
+                sql = "Select * from productos where producto ='"+producto+"'"; 
+            } else {
+                sql = "Select * from productos";
+            }
+            s = cn.createStatement();
+            rs = s.executeQuery(sql);
+            rsm = rs.getMetaData();
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                modelo.addRow(datos);
+            }
+            this.viewProductos.jTable1.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == this.viewProductos.jbtnAgregar) {
             Guardar();
@@ -270,6 +275,8 @@ public class ControllerProductos implements ActionListener{
             Primero();
         } else if (ae.getSource() == this.viewProductos.jbtnNuevo) {
             Nuevo();
+        } else if (ae.getSource() == this.viewProductos.jbtnBusacr){
+            Tabla();
         }
     }
 }

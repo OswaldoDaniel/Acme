@@ -22,8 +22,8 @@ import views.ViewUsuario;
  */
 public class ControllerUsuario implements ActionListener {
 
-    private ModelUsuario modelUsuario;
-    private ViewUsuario viewUsuario;
+    ModelUsuario modelUsuario;
+    ViewUsuario viewUsuario;
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
 
     public ControllerUsuario(ModelUsuario modelUsuario, ViewUsuario viewUsuario) {

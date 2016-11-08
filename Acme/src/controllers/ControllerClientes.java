@@ -23,6 +23,8 @@ import java.sql.Statement;
 //import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.ModelClientes;
@@ -49,12 +51,9 @@ public class ControllerClientes implements ActionListener{
         this.viewClientes.jbAdd.addActionListener(this);
         this.viewClientes.jbDelete.addActionListener(this);
         this.viewClientes.jbEdit.addActionListener(this);
-        this.viewClientes.jbLast.addActionListener(this);
-        this.viewClientes.jbFirst.addActionListener(this);
-        this.viewClientes.jbNext.addActionListener(this);
-        this.viewClientes.jbPrevious.addActionListener(this);
         this.viewClientes.jbSearch.addActionListener(this);
-        init_view();
+        this.viewClientes.setVisible(true);
+        Tabla();
     }
     
     public void guardar(){
@@ -68,43 +67,49 @@ public class ControllerClientes implements ActionListener{
         this.modelClientes.setNombre(this.viewClientes.jtfName.getText());
         this.modelClientes.setNumero(Integer.parseInt(this.viewClientes.jtfNumber.getText()));
         this.modelClientes.setRfc(this.viewClientes.jtfRFC.getText());
-        this.modelClientes.setTelefono(this.viewClientes.jtfTelephone.getText());        
+        this.modelClientes.setTelefono(this.viewClientes.jtfTelephone.getText());
     }
     
-    public void init_view() {
-        this.viewClientes.setVisible(true);
-        this.modelClientes.initValues();
-        Tabla();
-    }
-    
-    public void Tabla() {
-        DefaultTableModel dtm = new DefaultTableModel();
+public void Tabla() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
-            String id = JOptionPane.showInputDialog(null, "dame el id del cliente");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            modelo.addColumn("id");
+            modelo.addColumn("nombre");
+            modelo.addColumn("APM");
+            modelo.addColumn("APP");
+            modelo.addColumn("telefono");
+            modelo.addColumn("email");
+            modelo.addColumn("rfc");
+            modelo.addColumn("calle");
+            modelo.addColumn("numero");
+            modelo.addColumn("colonia");
+            modelo.addColumn("ciudad");
+            modelo.addColumn("estado");
             this.viewClientes.jtBusqueda.setModel(modelo);
-            String url = "jdbc:mysql://localhost:3306/acme?zeroDateTimeBehavior=convertToNull";
-            cn = DriverManager.getConnection(url, "root", "");
+            String datos[] = new String[12];
             s = cn.createStatement();
-            rs = s.executeQuery("select * from cliente where id_cliente = '"+id+"'");
-            ResultSetMetaData rsMd = rs.getMetaData();
-            int cantidadColumnas = rsMd.getColumnCount();
-            for (int i = 1; i <= cantidadColumnas; i++) {
-                modelo.addColumn(rsMd.getColumnLabel(i));
-            }
+            rs = s.executeQuery("SELECT * FROM cliente");
+            rsm = rs.getMetaData();
             while (rs.next()) {
-                Object[] fila = new Object[cantidadColumnas];
-                for (int i = 0; i < cantidadColumnas; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                modelo.addRow(fila);
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                datos[6] = rs.getString(7);
+                datos[7] = rs.getString(8);
+                datos[8] = rs.getString(9);
+                datos[9] = rs.getString(10);
+                datos[10] = rs.getString(11);
+                datos[11] = rs.getString(12);
+                modelo.addRow(datos);
             }
-            rs.close();
-            cn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            this.viewClientes.jtBusqueda.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     public void Primero() {
         modelClientes.moveFirst();
@@ -135,16 +140,8 @@ public class ControllerClientes implements ActionListener{
         } else if(e.getSource() == this.viewClientes.jbEdit){
             guardar();
             this.modelClientes.editar();
-        } else if(e.getSource() == this.viewClientes.jbFirst){
-            Primero();
-        } else if(e.getSource() == this.viewClientes.jbLast){
-            Ultimo();
-        } else if(e.getSource() == this.viewClientes.jbNext){
-            Siguiente();
-        } else if(e.getSource() == this.viewClientes.jbPrevious){
-            Anterior();
-        } else {
-            
+        } else if (e.getSource() == this.viewClientes.jbSearch){
+            Tabla();
         }
     }
 }

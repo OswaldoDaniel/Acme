@@ -226,9 +226,8 @@ public class ModelClientes {
     public void guardar(){
         try {
             id = JOptionPane.showInputDialog("Dame la id del cliente","");
-            String sql = "insert into clientes(id_cliente,nombre,apellido_pat,apellido_mat,telefono,email,rfc,calle,no,colonia,ciudadad,estado) values ('"+id+"',','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+",'"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
+            String sql = "insert into cliente(id_cliente,nombre,apellido_pat,apellido_mat,telefono,email,rfc,calle,no,colonia,ciudadad,Estado) values ('"+id+"','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+"','"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
             conection.executeUpdate(sql);
-            conection.executeQuery("Select * from clientes");
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, "No hay cliente");
         }
@@ -241,7 +240,7 @@ public class ModelClientes {
     
     public void editar(){
         id = JOptionPane.showInputDialog("Dame la id del cliente","");
-        conection.executeUpdate("update cliente set nombre='"+nombre+ "',ap_materno='"+apMat+"',ap_paterno='"+apPat+"',telefono='"+telefono+"',email='"+email+"',rfc='"+rfc+"',calle='"+calle+"',no='"+numero+"',colonia='"+colonia+"',ciudad='"+ciudad+"',estado='"+estado+"'where id_producto='"+ id+"';");
+        conection.executeUpdate("update cliente set nombre='"+nombre+ "',ap_materno='"+apMat+"',ap_paterno='"+apPat+"',telefono='"+telefono+"',email='"+email+"',rfc='"+rfc+"',calle='"+calle+"',no='"+numero+"',colonia='"+colonia+"',ciudad='"+ciudad+"',estado='"+estado+"'where id_cliente='"+ id+"';");
     }
     
 }
