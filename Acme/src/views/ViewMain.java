@@ -66,7 +66,12 @@ public class ViewMain extends javax.swing.JFrame {
 
         jMenu1.setText("Archivos");
 
-        jMenuItemIniciar.setText("Iniciar Secion");
+        jMenuItemIniciar.setText("Iniciar Sesion");
+        jMenuItemIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemIniciarActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItemIniciar);
 
         jMenuItemUsuario.setText("Usuario");
@@ -131,6 +136,10 @@ public class ViewMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItemIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemIniciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemIniciarActionPerformed
 
     /**
      * @param args the command line arguments

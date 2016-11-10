@@ -5,7 +5,6 @@
  */
 package models;
 
-import javax.swing.JOptionPane;
 import sax.DBConnection;
 
 /**
@@ -13,21 +12,16 @@ import sax.DBConnection;
  * @author usuario
  */
 public class ModelCompras {
-
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     private int numProveedor;
     private int numProducto;
-    private int cantidad;
-    private int totalPrecProd;
+    private int Cantidad;
+    private int TotalPrecProd;
     private String fecha;
-    private int precio;
-    private String id;
-    public String sql;
-    public String sql2;
-    public int iva = 16;
+    
     public double total;
     public double subtotal;
-
+    
     /**
      * @return the numProveedor
      */
@@ -57,31 +51,31 @@ public class ModelCompras {
     }
 
     /**
-     * @return the cantidad
+     * @return the Cantidad
      */
     public int getCantidad() {
-        return cantidad;
+        return Cantidad;
     }
 
     /**
-     * @param cantidad the cantidad to set
+     * @param Cantidad the Cantidad to set
      */
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setCantidad(int Cantidad) {
+        this.Cantidad = Cantidad;
     }
 
     /**
-     * @return the totalPrecProd
+     * @return the TotalPrecProd
      */
     public int getTotalPrecProd() {
-        return totalPrecProd;
+        return TotalPrecProd;
     }
 
     /**
-     * @param totalPrecProd the TotalPrecProd to set
+     * @param TotalPrecProd the TotalPrecProd to set
      */
-    public void setTotalPrecProd(int totalPrecProd) {
-        this.totalPrecProd = totalPrecProd;
+    public void setTotalPrecProd(int TotalPrecProd) {
+        this.TotalPrecProd = TotalPrecProd;
     }
 
     /**
@@ -97,82 +91,43 @@ public class ModelCompras {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
-    /**
-     * @return the precio
-     */
-    public int getPrecio() {
-        return precio;
-    }
-
-    /**
-     * @param precio the precio to set
-     */
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void moveNext() {
+    
+    public void moveNext(){
         conection.moveNext();
         setValues();
     }
-
-    public void movePrevious() {
+    
+    public void movePrevious(){
         conection.movePrevious();
         setValues();
     }
-
-    public void moveFirst() {
+    
+    public void moveFirst(){
         conection.moveFirst();
         setValues();
     }
-
-    public void moveLast() {
+    
+    public void moveLast(){
         conection.moveLast();
         setValues();
     }
-
-    public void setValues() {
+    
+    public void setValues(){
         this.numProveedor = conection.getInteger("id_proveedor");
         this.fecha = conection.getString("fecha");
-        this.cantidad = conection.getInteger("producto");
+        this.Cantidad = conection.getInteger("producto");
         this.numProducto = conection.getInteger("producto");
         this.fecha = conection.getString("fecha");
-        this.totalPrecProd = conection.getInteger("total_producto");
-        this.precio = conection.getInteger("precio");
+        this.TotalPrecProd = conection.getInteger("Total_precio_producto");
     }
-
-    public double getSubtotal() {
-        subtotal = cantidad * totalPrecProd;
+    
+    public double getSubtotal(){
+        subtotal = Cantidad * TotalPrecProd;
         return subtotal;
     }
-
-    public double getTotal() {
-        total = subtotal + iva;
+    
+    public double getTotal(){
+        total = subtotal +(subtotal*0.16);
         return total;
-    }
-
-    public String sqlCompra() {
-        sql = "insert into compras(fecha,id_proveedor,subtotal,iva,total) values ('" + id + "','" + fecha + "','" + numProveedor + "','" + subtotal + "','" + iva + "','" + total + "');";
-        return sql;
-    }
-
-    public String sqlDetalleCompra() {
-        sql2 = "insert into detalle_compra(id_compra,id_producto,cantidad,total_precio_producto,precio) values (" + "'" + id + "','" + numProducto + "','" + cantidad + "','" + totalPrecProd + "','" + precio + "');";
-        return sql2;
     }
 }

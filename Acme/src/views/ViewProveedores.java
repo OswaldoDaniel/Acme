@@ -58,22 +58,25 @@ public class ViewProveedores extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(91, 148, 211));
 
+        jtBusqueda.setAutoCreateColumnsFromModel(false);
+        jtBusqueda.setBackground(new java.awt.Color(151, 190, 209));
+        jtBusqueda.setFont(new java.awt.Font("Lucida Console", 2, 16)); // NOI18N
         jtBusqueda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-
+                "Nombre", "Apellidos", "Telefono", "Email", "RFC", "Calle", "No.", "Colonia", "Ciudad", "Estado"
             }
         ));
         jtBusqueda.getTableHeader().setReorderingAllowed(false);

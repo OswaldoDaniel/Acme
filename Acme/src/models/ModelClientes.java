@@ -223,22 +223,24 @@ public class ModelClientes {
     }
     
     
-    public String guardarSql(){
-        id = JOptionPane.showInputDialog("Dame la id del cliente","");
-        String sql = "insert into cliente(id_cliente,nombre,apellido_pat,apellido_mat,telefono,email,rfc,calle,no,colonia,ciudadad,Estado) values ('"+id+"','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+"','"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
-        return sql;
+    public void guardar(){
+        try {
+            id = JOptionPane.showInputDialog("Dame la id del cliente","");
+            String sql = "insert into cliente(id_cliente,nombre,apellido_pat,apellido_mat,telefono,email,rfc,calle,no,colonia,ciudadad,Estado) values ('"+id+"','"+nombre+"','"+apMat+"','"+apPat+"','"+telefono+"','"+email+"','"+rfc+"','"+calle+"','"+numero+"','"+colonia+"','"+ciudad+"','"+estado+"');";
+            conection.executeUpdate(sql);
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, "No hay cliente");
+        }
     }
     
-    public String borrarSql(){
+    public void borrar(){
         id = JOptionPane.showInputDialog("Dame la id del cliente","");
-        String sql = "delete from cliente where id_cliente='"+id+"'";
-        return sql;
+        conection.executeUpdate("delete from cliente where id_cliente=" + id);
     }
     
-    public String editarSql(){
+    public void editar(){
         id = JOptionPane.showInputDialog("Dame la id del cliente","");
-        String sql = "update cliente set nombre='"+nombre+ "',ap_materno='"+apMat+"',ap_paterno='"+apPat+"',telefono='"+telefono+"',email='"+email+"',rfc='"+rfc+"',calle='"+calle+"',no='"+numero+"',colonia='"+colonia+"',ciudad='"+ciudad+"',estado='"+estado+"'where id_cliente='"+ id+"';";
-        return sql;
+        conection.executeUpdate("update cliente set nombre='"+nombre+ "',ap_materno='"+apMat+"',ap_paterno='"+apPat+"',telefono='"+telefono+"',email='"+email+"',rfc='"+rfc+"',calle='"+calle+"',no='"+numero+"',colonia='"+colonia+"',ciudad='"+ciudad+"',estado='"+estado+"'where id_cliente='"+ id+"';");
     }
     
 }

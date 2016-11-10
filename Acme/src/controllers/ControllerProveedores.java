@@ -6,7 +6,7 @@
 package controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,9 +24,9 @@ import views.ViewProveedores;
  * @author WINDOWS
  */
 public class ControllerProveedores implements ActionListener{
-    Connection conexion;
-    Statement st;
-    ResultSet rs;
+    private Connection conexion;
+    private Statement st;
+    private ResultSet rs;
     ModelProveedores modelProveedores;
     ViewProveedores viewProveedores;
     ResultSetMetaData rsm;
@@ -63,13 +63,13 @@ public class ControllerProveedores implements ActionListener{
             st=conexion.createStatement();
         }catch(SQLException err){
             JOptionPane.showMessageDialog(null,"Ocurrio un problema al conectar con la base de datos"); 
-        }
+        } 
     }
     private void borrarProv() {
         llenarDatos();
         conectar();
         try {
-            st.executeUpdate(this.modelProveedores.deleteSql());
+            st.executeQuery(this.modelProveedores.deleteSql());
             JOptionPane.showMessageDialog(null, "Proveedor Borrado Exitosamente");
         } catch (SQLException ex) {
             Logger.getLogger(ControllerProveedores.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,7 +105,6 @@ public class ControllerProveedores implements ActionListener{
     public void mostrarTablaProveedores(){
         try {
             DefaultTableModel model = new DefaultTableModel();
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/acme","root",""); 
             model.addColumn("id");
             model.addColumn("Nombre");
             model.addColumn("RFC");
@@ -118,8 +117,7 @@ public class ControllerProveedores implements ActionListener{
             model.addColumn("Telefono");
             model.addColumn("Email");
             this.viewProveedores.jtBusqueda.setModel(model);
-            String datos[] = new String [11];                    
-            st=conexion.createStatement();
+            String datos[] = new String [11];
             rs = st.executeQuery("SELECT * FROM proveedores");
             rsm = rs.getMetaData();
             while(rs.next()){
