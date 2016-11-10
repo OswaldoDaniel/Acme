@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import static controllers.ControllerVentas.s;
+import ODST.DatosNumericos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -22,55 +22,166 @@ import javax.swing.table.DefaultTableModel;
 import sax.DBConnection;
 import views.viewCompras;
 import models.ModelCompras;
+
 /**
  *
  * @author usuario
  */
-public class ControllerCompras implements ActionListener{
+public class ControllerCompras implements ActionListener {
+
     viewCompras viewCompras;
     ModelCompras modelCompras;
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     Connection cn;
     PreparedStatement ps;
-    static Statement s;
+    Statement s;
     ResultSet rs;
     ResultSetMetaData rsm;
-    
-    
-    
-    public ControllerCompras(viewCompras viewCompras,ModelCompras modelCompras) {
+    DatosNumericos dats = new DatosNumericos();
+
+    public ControllerCompras(viewCompras viewCompras, ModelCompras modelCompras) {
         this.viewCompras = viewCompras;
         this.viewCompras = viewCompras;
         this.viewCompras.jbAdd.addActionListener(this);
         this.viewCompras.jbCancel.addActionListener(this);
         this.viewCompras.jbNew.addActionListener(this);
+        this.viewCompras.jbBuscarProveedores.addActionListener(this);
+        this.viewCompras.jbBuscarProductos.addActionListener(this);
         this.viewCompras.setVisible(true);
     }
-    
     public void Guardar() {
+        //try { 
+            datos();
+            this.modelCompras.setId(JOptionPane.showInputDialog("Dame el id de la compra",""));
+            conection.executeUpdate(this.modelCompras.sqlCompra());
+            conection.executeUpdate(this.modelCompras.sqlDetalleCompra());
+        //} catch (Exception err) {
+            //JOptionPane.showMessageDialog(null, "No hay ningun dato introducido!!!");
+        //}
+    }
+    public void datos() {
+        this.modelCompras.setCantidad(dats.stringToInt(this.viewCompras.jtfCantidad.getText()));
+        this.modelCompras.setFecha(this.viewCompras.jtfFecha.getText());
+        this.modelCompras.setNumProducto(dats.stringToInt(this.viewCompras.jtfProducto.getText()));
+        this.modelCompras.setNumproveedor(dats.stringToInt(this.viewCompras.jtfProveedor.getText()));
+        this.modelCompras.setPrecio(dats.stringToInt(this.viewCompras.jtfPrecio.getText()));
+        this.modelCompras.setTotalPrecProd(dats.stringToInt(this.viewCompras.jtfTotPrecProd.getText()));
+    }
+
+    public void Eliminar() {
         try {
-            String producto = this.viewCompras.jtfProducto.getText();
-            String fecha = this.viewCompras.jtfFecha.getText();
-            String proveedor = this.viewCompras.jtfProveedor.getText();
-            this.modelCompras.setCantidad(Integer.parseInt(this.viewCompras.jtfCantidad.getText()));
-            this.modelCompras.setTotalPrecProd(Integer.parseInt(this.viewCompras.jtfTotPrecProd.getText()));
-            String total = "" + this.modelCompras.getTotal();
-            String subtotal = "" + this.modelCompras.getSubtotal();
-            String cant =this.viewCompras.jtfCantidad.getText();
-            String tot = this.viewCompras.jtfTotPrecProd.getText();
-            String precio = this.viewCompras.jtfPrecio.getText();
-            String sql = "insert into compras(fecha,id_proveedor,subtotal,num,total) values (" + "'" + fecha + "','" + proveedor + "','" +subtotal + "','" +  total+ "','"+precio+"');";
-            String sql2 = "insert into detalle_compra(id_compra,id_producto,cantidad,total_precio_producto) values ("+"'"+"','"+producto+"','"+cant+"','"+tot+"');";
-            
-            conection.executeUpdate(sql);
-            conection.executeUpdate(sql2);
-            conection.executeQuery("Select * from compras");
-            Primero();
+            String id_venta = JOptionPane.showInputDialog("deme el numero de la venta", "");
+            conection.executeUpdate("delete from detalle_compra where id_venta=" + id_venta);
+            conection.executeUpdate("delete from compras where id_venta=" + id_venta);
+            conection.executeQuery("Select * from compras order by id_producto");
+            this.viewCompras.jtfCantidad.setText("");
+            this.viewCompras.jtfProveedor.setText("");
+            this.viewCompras.jtfFecha.setText("");
+            this.viewCompras.jtfProducto.setText("");
+            this.viewCompras.jtfTotPrecProd.setText("");
         } catch (Exception err) {
-            JOptionPane.showMessageDialog(this.viewCompras, "No hay objeto seleccionado");
+            JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
         }
     }
-    public void Tabla() {
+
+    public void Nueva() {
+        try {
+            datos();
+            this.viewCompras.jtfCantidad.setText("");
+            this.viewCompras.jtfProveedor.setText("");
+            this.viewCompras.jtfFecha.setText("");
+            this.viewCompras.jtfProducto.setText("");
+            this.viewCompras.jtfTotPrecProd.setText("");
+        } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
+        }
+    }
+
+    public void tablaProveedores() {
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            model.addColumn("id");
+            model.addColumn("Nombre");
+            model.addColumn("RFC");
+            model.addColumn("Calle");
+            model.addColumn("No");
+            model.addColumn("Colonia");
+            model.addColumn("Ciudad");
+            model.addColumn("Estado");
+            model.addColumn("Contacto");
+            model.addColumn("Telefono");
+            model.addColumn("Email");
+            this.viewCompras.jtBuscaProveedores.setModel(model);
+            String datos[] = new String[11];
+            String sql = "";
+            if (this.viewCompras.jcbSpecificProduct.isSelected()) {
+                String producto = JOptionPane.showInputDialog("Deme el nombre del proveedor", "");
+                sql = "Select * from proveedores where nombre ='" + producto + "'";
+            } else {
+                sql = "Select * from proveedores";
+            }
+            s = cn.createStatement();
+            rs = s.executeQuery(sql);
+            rsm = rs.getMetaData();
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                datos[6] = rs.getString(7);
+                datos[7] = rs.getString(8);
+                datos[8] = rs.getString(9);
+                datos[9] = rs.getString(10);
+                datos[10] = rs.getString(11);
+                model.addRow(datos);
+            }
+            this.viewCompras.jtBuscaProveedores.setModel(model);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerCompras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void tablaProductos() {
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            modelo.addColumn("Id");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Descripcion");
+            modelo.addColumn("P_compra");
+            modelo.addColumn("P_venta");
+            modelo.addColumn("Existencias");
+            this.viewCompras.jtBuscaProductos.setModel(modelo);
+            String datos[] = new String[6];
+            String sql = "";
+            if (this.viewCompras.jcbSpecificBrand.isSelected()) {
+                String producto = JOptionPane.showInputDialog("Deme el nombre del producto", "");
+                sql = "Select * from productos where producto ='" + producto + "'";
+            } else {
+                sql = "Select * from productos";
+            }
+            s = cn.createStatement();
+            rs = s.executeQuery(sql);
+            rsm = rs.getMetaData();
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                modelo.addRow(datos);
+            }
+            this.viewCompras.jtBuscaProductos.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerCompras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void TablaCompras() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
@@ -79,7 +190,7 @@ public class ControllerCompras implements ActionListener{
             modelo.addColumn("proveedor");
             modelo.addColumn("producto");
             modelo.addColumn("cantidad");
-            this.viewCompras.jtBuscaClientes.setModel(modelo);
+            this.viewCompras.jtMostrarCompra.setModel(modelo);
             String datos[] = new String[5];
             s = cn.createStatement();
             rs = s.executeQuery("SELECT compras.id_compra,compras.fecha,proveedores.nombre,productos.producto,detalle_compra.cantidad FROM proveedores, compras, detalle_compra, productos WHERE proveedores.id_proveedor = compras.id_proveedor AND compras.id_compra = detalle_compra.id_compra AND productos.id_producto = detalle_compra.id_producto");
@@ -92,61 +203,27 @@ public class ControllerCompras implements ActionListener{
                 datos[4] = rs.getString(5);
                 modelo.addRow(datos);
             }
-            this.viewCompras.jtBuscaClientes.setModel(modelo);
+            this.viewCompras.jtMostrarCompra.setModel(modelo);
         } catch (SQLException ex) {
             Logger.getLogger(ControllerVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Primero() {
-        modelCompras.moveFirst();
-    }
 
-    public void Siguiente() {
-        modelCompras.moveNext();
-    }
 
-    public void Anterior() {
-        modelCompras.movePrevious();
-    }
-    
-    public void Eliminar() {
-        try {
-            
-            String id_venta = JOptionPane.showInputDialog("deme el numero de la venta","");
-            conection.executeUpdate("delete from detalle_compra where id_venta=" + id_venta);
-            conection.executeUpdate("delete from compras where id_venta=" + id_venta);
-            conection.executeQuery("Select * from compras order by id_producto");
-
-            this.viewCompras.jtfCantidad.setText("");
-            this.viewCompras.jtfProveedor.setText("");
-            this.viewCompras.jtfFecha.setText("");
-            this.viewCompras.jtfProducto.setText("");
-            this.viewCompras.jtfTotPrecProd.setText("");
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
-        }
-    }
-    
-    public void Nueva() {
-        try {
-            Guardar();
-            this.viewCompras.jtfCantidad.setText("");
-            this.viewCompras.jtfProveedor.setText("");
-            this.viewCompras.jtfFecha.setText("");
-            this.viewCompras.jtfProducto.setText("");
-            this.viewCompras.jtfTotPrecProd.setText("");
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
-        }
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.viewCompras.jbAdd){
+        if (e.getSource() == this.viewCompras.jbAdd) {
             Guardar();
-        } else if(e.getSource() == this.viewCompras.jbCancel){
+            TablaCompras();
+        } else if (e.getSource() == this.viewCompras.jbCancel) {
             Eliminar();
-        } else if(e.getSource() == this.viewCompras.jbNew){
+            TablaCompras();
+        } else if (e.getSource() == this.viewCompras.jbNew) {
             Nueva();
+        } else if (e.getSource() == this.viewCompras.jbBuscarProveedores) {
+            tablaProveedores();
+        } else if (e.getSource() == this.viewCompras.jbBuscarProductos) {
+            tablaProductos();
         }
     }
 }

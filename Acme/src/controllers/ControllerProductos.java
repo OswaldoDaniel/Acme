@@ -7,31 +7,19 @@ package controllers;
 import sax.DBConnection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.ResultSetMetaData;
+import java.sql.Connection; 
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import models.ModelProductos;
-import views.ViewProductos;
-
-import java.sql.*; 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-/*import java.sql.DriverManager;
 import java.sql.ResultSet; 
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement; 
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;*/
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.ModelProductos;
+import views.ViewProductos;
 
 /**
  *
@@ -39,12 +27,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;*/
  */
 public class ControllerProductos implements ActionListener{
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
-    //private TableConection conect=new TableConection();
     ModelProductos modelProductos;
     ViewProductos viewProductos;
-    private String nombreArchivo;
-    private String ruta;
-    private String nuevaRuta;
     PreparedStatement ps;
     ResultSetMetaData rsm;
     DefaultTableModel dtm;
@@ -108,7 +92,6 @@ public class ControllerProductos implements ActionListener{
     public void Guardar() {
         try {
             String producto = this.viewProductos.jtfProducto.getText();
-            //String id_producto=this.viewProductos.jLId.getText();
             String descripción = this.viewProductos.jTextAreaDescripción.getText();
             String precioCompra = this.viewProductos.jtfPrecioC.getText();
             String precioVenta = this.viewProductos.jtfPrecioV.getText();
@@ -144,7 +127,7 @@ public class ControllerProductos implements ActionListener{
     public void Eliminar() {
         try {
             String idproducto = JOptionPane.showInputDialog("Dame el id del producto","");
-            conection.executeUpdate("delete from productos where id_producto=" );
+            conection.executeUpdate("delete from productos where id_producto ='"+idproducto+"'");
             conection.executeQuery("Select * from productos order by id_producto");
             this.viewProductos.jtfProducto.setText("");
             this.viewProductos.jTextAreaDescripción.setText("");

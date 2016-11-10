@@ -5,22 +5,14 @@
  */
 package controllers;
 import sax.DBConnection;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.CopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+
 import java.sql.Connection; 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet; 
 import java.sql.ResultSetMetaData;
-import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.sql.Statement; 
-//import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -38,7 +30,7 @@ public class ControllerClientes implements ActionListener{
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     Connection cn;
     PreparedStatement ps;
-    static Statement s;
+    Statement s;
     ResultSet rs;
     ResultSetMetaData rsm;
     
@@ -53,7 +45,16 @@ public class ControllerClientes implements ActionListener{
         this.viewClientes.jbEdit.addActionListener(this);
         this.viewClientes.jbSearch.addActionListener(this);
         this.viewClientes.setVisible(true);
-        Tabla();
+        
+        conectar();
+    }
+    public void conectar(){
+        try{ 
+            cn=DriverManager.getConnection("jdbc:mysql://localhost/acme","root","");                     
+            s=cn.createStatement();
+        }catch(SQLException err){
+            JOptionPane.showMessageDialog(null,"Ocurrio un problema al conectar con la base de datos"); 
+        } 
     }
     
     public void guardar(){
@@ -73,7 +74,6 @@ public class ControllerClientes implements ActionListener{
 public void Tabla() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
             modelo.addColumn("id");
             modelo.addColumn("nombre");
             modelo.addColumn("APM");
@@ -88,8 +88,8 @@ public void Tabla() {
             modelo.addColumn("estado");
             this.viewClientes.jtBusqueda.setModel(modelo);
             String datos[] = new String[12];
-            s = cn.createStatement();
-            rs = s.executeQuery("SELECT * FROM cliente");
+            //conectar();
+            rs = s.executeQuery("SELECT * FROM cliente;");
             rsm = rs.getMetaData();
             while (rs.next()) {
                 datos[0] = rs.getString(1);
@@ -111,35 +111,50 @@ public void Tabla() {
             Logger.getLogger(ControllerClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void Primero() {
-        modelClientes.moveFirst();
-        this.modelClientes.initValues();
+    
+    public void añadir(){
+        try {
+            guardar();
+            conectar();
+            s.executeUpdate(this.modelClientes.guardarSql());
+            JOptionPane.showMessageDialog(null, "Cliente Añadido Exitosamente");
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerClientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "HA HABIDO UN ERROR");
+        }
     }
-
-    public void Siguiente() {
-       modelClientes.moveNext();
-       this.modelClientes.initValues();
+    
+    public void editar(){
+        try {
+            guardar();
+            conectar();
+            s.executeUpdate(this.modelClientes.editarSql());
+            JOptionPane.showMessageDialog(null, "Cliente Editado Exitosamente");
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerClientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "HA HABIDO UN ERROR");
+        }
     }
-
-    public void Anterior() {
-        modelClientes.movePrevious();
-        this.modelClientes.initValues();
-    }
-    public void Ultimo() {
-        modelClientes.moveLast();
-        this.modelClientes.initValues();
+    
+    public void borrar(){
+        try {
+            guardar();
+            conectar();
+            s.executeUpdate(this.modelClientes.borrarSql());
+            JOptionPane.showMessageDialog(null, "Cliente Borrado Exitosamente");
+        } catch (SQLException ex) {
+            Logger.getLogger(ControllerClientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "HA HABIDO UN ERROR");
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.viewClientes.jbAdd){
-            guardar();
-            this.modelClientes.guardar();
+            añadir();
         } else if (e.getSource() ==this.viewClientes.jbDelete){
-            guardar();
-            this.modelClientes.borrar();
+            borrar();
         } else if(e.getSource() == this.viewClientes.jbEdit){
-            guardar();
-            this.modelClientes.editar();
+            editar();
         } else if (e.getSource() == this.viewClientes.jbSearch){
             Tabla();
         }
