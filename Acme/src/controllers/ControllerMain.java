@@ -23,7 +23,7 @@ import views.ViewMain;
 import views.*;
 import models.*;
 import views.ViewUsuario;
-import views.ViewIniciarSecion;
+import views.ViewIniciarSesion;
 import views.viewCompras;
 import views.ViewClientes;
 import java.util.Date;
@@ -52,7 +52,7 @@ public class ControllerMain implements ActionListener {
     ViewProductos viewProductos;
     
     ModelLogin modelLogin;
-    ViewIniciarSecion viewIniciarSecion;
+    ViewIniciarSesion viewIniciarSecion;
     
     ModelVentas modelVentas;
     ViewVentas viewVentas;
@@ -60,7 +60,7 @@ public class ControllerMain implements ActionListener {
     ModelUsuario modelUsuario;
     ViewUsuario viewUsuario;
     
-    public ControllerMain(ModelMain modelMain, ModelClientes modelClientes, ModelCompras modelCompras,ModelProductos modelProductos,ModelLogin modelLogin, ModelVentas modelVentas,ModelUsuario modelUsuario, ViewMain viewMain,ViewClientes viewClientes,viewCompras viewCompras,ViewProductos viewProductos, ViewIniciarSecion viewIniciarSecion, ViewVentas viewVentas, ViewUsuario viewUsuario) {
+    public ControllerMain(ModelMain modelMain, ModelClientes modelClientes, ModelCompras modelCompras,ModelProductos modelProductos,ModelLogin modelLogin, ModelVentas modelVentas,ModelUsuario modelUsuario, ViewMain viewMain,ViewClientes viewClientes,viewCompras viewCompras,ViewProductos viewProductos, ViewIniciarSesion viewIniciarSecion, ViewVentas viewVentas, ViewUsuario viewUsuario) {
         this.viewMain = viewMain;
         this.modelMain = modelMain;
         this.modelProductos = modelProductos;

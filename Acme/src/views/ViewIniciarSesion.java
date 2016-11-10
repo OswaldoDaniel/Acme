@@ -9,12 +9,12 @@ package views;
  *
  * @author RoseLandjlord
  */
-public class ViewIniciarSecion extends javax.swing.JPanel {
+public class ViewIniciarSesion extends javax.swing.JPanel {
 
     /**
      * Creates new form iniciarSecion
      */
-    public ViewIniciarSecion() {
+    public ViewIniciarSesion() {
         initComponents();
     }
 

@@ -9,7 +9,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import models.ModelLogin;
-import views.ViewIniciarSecion;
+import views.ViewIniciarSesion;
 import views.ViewProductos;
 import views.ViewMain;
 import sax.DBConnection;
@@ -28,14 +28,14 @@ public class ControllerLogin implements ActionListener {
 
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     ModelLogin modelLogin;
-    ViewIniciarSecion viewIniciarSecion;
+    ViewIniciarSesion viewIniciarSecion;
     ViewProductos viewProductos;
     ViewMain viewMain;
     private Statement st;
     private ResultSet rs;
     // private ResultSet rs;
 
-    public ControllerLogin(ModelLogin modelLogin, ViewIniciarSecion viewIniciarSecion, ViewProductos viewProductos) {
+    public ControllerLogin(ModelLogin modelLogin, ViewIniciarSesion viewIniciarSecion, ViewProductos viewProductos) {
         this.modelLogin = modelLogin;
         this.viewIniciarSecion = viewIniciarSecion;
         this.viewProductos = viewProductos;
