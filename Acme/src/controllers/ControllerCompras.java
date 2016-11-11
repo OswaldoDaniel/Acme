@@ -47,17 +47,25 @@ public class ControllerCompras implements ActionListener {
         this.viewCompras.jbNew.addActionListener(this);
         this.viewCompras.jbBuscarProveedores.addActionListener(this);
         this.viewCompras.jbBuscarProductos.addActionListener(this);
+        this.viewCompras.jbMostrar.addActionListener(this);
         this.viewCompras.setVisible(true);
     }
     public void Guardar() {
-        //try { 
-            datos();
-            this.modelCompras.setId(JOptionPane.showInputDialog("Dame el id de la compra",""));
-            conection.executeUpdate(this.modelCompras.sqlCompra());
-            conection.executeUpdate(this.modelCompras.sqlDetalleCompra());
-        //} catch (Exception err) {
-            //JOptionPane.showMessageDialog(null, "No hay ningun dato introducido!!!");
-        //}
+        String producto = this.viewCompras.jtfProducto.getText();
+        String fecha = this.viewCompras.jtfFecha.getText();
+        String cliente = this.viewCompras.jtfProveedor.getText();
+        int cantidad = dats.stringToInt(this.viewCompras.jtfCantidad.getText());
+        float precio = dats.stringToFloat(this.viewCompras.jtfPrecio.getText());
+        int iva = 16;
+        float subtotal = cantidad * precio;
+        float tot = subtotal;
+        this.viewCompras.jtfTotPrecProd.setText(""+tot);
+        float total = (subtotal*(iva/100)) + subtotal;
+        String id_venta = JOptionPane.showInputDialog("deme el numero de la venta", "");
+        String sql = "insert into compras(id_compra,fecha,id_proveedor,subtotal,iva,total) values ('" + id_venta + "','" + fecha + "','" + cliente + "','" + subtotal + "','"+iva+"','" + total + "');";
+        String sql2 = "insert into detalle_compra(id_compra,id_producto,cantidad,total_producto,precio) values (" + "'" + id_venta + "','" + producto + "','" + cantidad + "','" + tot + "','"+precio+"');";
+        conection.executeUpdate(sql);
+        conection.executeUpdate(sql2);
     }
     public void datos() {
         this.modelCompras.setCantidad(dats.stringToInt(this.viewCompras.jtfCantidad.getText()));

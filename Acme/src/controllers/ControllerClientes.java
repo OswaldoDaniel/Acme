@@ -73,6 +73,7 @@ public class ControllerClientes implements ActionListener{
     
 public void Tabla() {
         try {
+            cn=DriverManager.getConnection("jdbc:mysql://localhost/acme","root",""); 
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.addColumn("id");
             modelo.addColumn("nombre");
@@ -88,7 +89,7 @@ public void Tabla() {
             modelo.addColumn("estado");
             this.viewClientes.jtBusqueda.setModel(modelo);
             String datos[] = new String[12];
-            //conectar();
+            s=cn.createStatement();
             rs = s.executeQuery("SELECT * FROM cliente;");
             rsm = rs.getMetaData();
             while (rs.next()) {

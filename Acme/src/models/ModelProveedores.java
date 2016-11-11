@@ -170,7 +170,7 @@ public class ModelProveedores {
     }
     
     public String insertSql(){
-        String id = JOptionPane.showInputDialog("Dame la id del cliente","");
+        String id = JOptionPane.showInputDialog("Dame la id del PROVEEDOR","");
         sql = "INSERT INTO proveedores(id_proveedor,nombre,rfc,calle,no,colonia,ciudad,estado,nombre_contacto,telefono,email) VALUES('"+id+"','"+nombre+"','"+rfc+"','"+calle+"','"+no+"','"+colonia+"','"+ciudad+"','"+estado+"','"+contacto+"','"+telefono+"','"+email+"');";
         return sql;
     }

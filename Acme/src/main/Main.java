@@ -8,7 +8,7 @@ import models.*;
 import views.*;
 import controllers.*;
 import javax.swing.JPanel;
-/**
+/** 
  *
  * @author usuario
  */
@@ -19,7 +19,7 @@ public class Main {
         ControllerProductos controllerProductos = new ControllerProductos(modelProductos, viewProductos);
 
         ModelLogin modelLogin = new ModelLogin();
-        ViewIniciarSesion viewIniciarSecion = new ViewIniciarSesion();
+        ViewIniciarSecion viewIniciarSecion = new ViewIniciarSecion();
         ControllerLogin controllerLogin = new ControllerLogin(modelLogin, viewIniciarSecion, viewProductos);
 
         ModelUsuario modelUsuario = new ModelUsuario();

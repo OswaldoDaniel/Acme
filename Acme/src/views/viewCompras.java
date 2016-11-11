@@ -53,6 +53,7 @@ public class viewCompras extends javax.swing.JPanel {
         jbNew = new javax.swing.JButton();
         jcbSpecificProduct = new javax.swing.JCheckBox();
         jcbSpecificBrand = new javax.swing.JCheckBox();
+        jbMostrar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(91, 148, 211));
 
@@ -123,6 +124,8 @@ public class viewCompras extends javax.swing.JPanel {
         jcbSpecificBrand.setBackground(new java.awt.Color(91, 148, 211));
         jcbSpecificBrand.setText("Buscar Producto Especifico");
 
+        jbMostrar.setText("Mostrar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -135,7 +138,9 @@ public class viewCompras extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbNew)
                         .addGap(18, 18, 18)
-                        .addComponent(jbCancel))
+                        .addComponent(jbCancel)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbMostrar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -214,7 +219,8 @@ public class viewCompras extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAdd)
                     .addComponent(jbNew)
-                    .addComponent(jbCancel))
+                    .addComponent(jbCancel)
+                    .addComponent(jbMostrar))
                 .addGap(50, 50, 50))
         );
 
@@ -246,6 +252,7 @@ public class viewCompras extends javax.swing.JPanel {
     public javax.swing.JButton jbBuscarProductos;
     public javax.swing.JButton jbBuscarProveedores;
     public javax.swing.JButton jbCancel;
+    public javax.swing.JButton jbMostrar;
     public javax.swing.JButton jbNew;
     public javax.swing.JCheckBox jcbSpecificBrand;
     public javax.swing.JCheckBox jcbSpecificProduct;

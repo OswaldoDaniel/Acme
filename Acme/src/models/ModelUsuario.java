@@ -139,14 +139,14 @@ public class ModelUsuario {
     
       
     public void initValues(){
-        conection.executeQuery("SELECT id_admin,nombre,apellido_pat,apellido_mat,usuario,contrasena,nivel,estado FROM admin;");
+        conection.executeQuery("SELECT id_user,nombre,apellido_pat,apellido_mat,usuario,contrasena,nivel,estado FROM admin;");
         conection.moveNext();
         setValues();
     }
     
     
     public void setValues(){
-         this.id_admin = conection.getString("id_admin");
+         this.id_admin = conection.getString("id_user");
         this.nombre = conection.getString("nombre");
         this.ap_pat = conection.getString("apellido_pat");
         this.ap_mat = conection.getString("apellido_mat");

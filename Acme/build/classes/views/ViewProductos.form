@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JFileChooser" name="jfcAbrirArchivo">
       <AuxValues>
@@ -36,7 +36,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="395" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -48,52 +48,45 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane2" min="-2" pref="185" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jbtnAnter" min="-2" pref="57" max="-2" attributes="0"/>
-                                          <Component id="jbtnEditar" min="-2" pref="65" max="-2" attributes="0"/>
-                                          <Component id="jbtnPrimero" alignment="0" min="-2" pref="57" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jbtnSiguiente" min="-2" pref="57" max="-2" attributes="0"/>
-                                          <Component id="jbtnBusacr" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jbtnUltimo" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jbtnAgregar" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <Component id="jbtnNuevo" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jbtnEliminar" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Component id="jScrollPane2" min="-2" pref="223" max="-2" attributes="0"/>
+                              <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jbtnNuevo" max="32767" attributes="0"/>
+                                  <Component id="jbtnAgregar" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jbtnEliminar" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jtfPrecioC" pref="89" max="32767" attributes="0"/>
-                                  <Component id="jtfProducto" max="32767" attributes="0"/>
-                                  <Component id="jtfPrecioV" max="32767" attributes="0"/>
-                                  <Component id="jtfExistencia" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jtfPrecioV" pref="134" max="32767" attributes="0"/>
+                                  <Component id="jtfExistencia" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jtfPrecioC" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jtfProducto" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                              <Component id="jcbSpecific" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="35" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jcbSpecific" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jbtnPrimero" max="32767" attributes="0"/>
+                                          <Component id="jbtnAnter" max="32767" attributes="0"/>
+                                          <Component id="jbtnEditar" pref="76" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jbtnBusacr" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jbtnSiguiente" min="-2" pref="75" max="-2" attributes="0"/>
+                                          <Component id="jbtnUltimo" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -129,21 +122,21 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Descripción" min="-2" max="-2" attributes="0"/>
-                          <Component id="jbtnNuevo" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Descripción" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jbtnNuevo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jbtnAgregar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jbtnEliminar" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jbtnAgregar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jbtnEliminar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="98" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="114" max="-2" attributes="0"/>
-              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

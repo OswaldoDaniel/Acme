@@ -45,6 +45,8 @@
                           <Component id="jbNew" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="jbCancel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jbMostrar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -141,6 +143,7 @@
                       <Component id="jbAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbNew" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbMostrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
@@ -340,6 +343,14 @@
               <Color blue="d3" green="94" red="5b" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Buscar Producto Especifico"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbMostrar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mostrar"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

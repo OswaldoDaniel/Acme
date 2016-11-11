@@ -28,20 +28,20 @@ public class ControllerLogin implements ActionListener {
 
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     ModelLogin modelLogin;
-    ViewIniciarSesion viewIniciarSecion;
+    ViewIniciarSesion viewIniciarSesion;
     ViewProductos viewProductos;
     ViewMain viewMain;
     private Statement st;
     private ResultSet rs;
     // private ResultSet rs;
 
-    public ControllerLogin(ModelLogin modelLogin, ViewIniciarSesion viewIniciarSecion, ViewProductos viewProductos) {
+    public ControllerLogin(ModelLogin modelLogin, ViewIniciarSesion viewIniciarSesion, ViewProductos viewProductos) {
         this.modelLogin = modelLogin;
-        this.viewIniciarSecion = viewIniciarSecion;
+        this.viewIniciarSesion = viewIniciarSesion;
         this.viewProductos = viewProductos;
         this.viewMain = viewMain;
-        this.viewIniciarSecion.jbtnIngresar.addActionListener(this);
-        this.viewIniciarSecion.setVisible(true);
+        this.viewIniciarSesion.jbtnIngresar.addActionListener(this);
+        this.viewIniciarSesion.setVisible(true);
         init_view();
     }
 
@@ -51,13 +51,13 @@ public class ControllerLogin implements ActionListener {
     }
 
     private void showValues() {
-        this.viewIniciarSecion.jtfUser.setText("" + modelLogin.getUs());
-        this.viewIniciarSecion.jPassword.setText("" + modelLogin.getPass());
+        this.viewIniciarSesion.jtfUser.setText("" + modelLogin.getUs());
+        this.viewIniciarSesion.jPassword.setText("" + modelLogin.getPass());
     }
 
     public void Entrar(String us, String pass) {
-        us = this.viewIniciarSecion.jtfUser.getText();
-        pass = new String(this.viewIniciarSecion.jPassword.getPassword());
+        us = this.viewIniciarSesion.jtfUser.getText();
+        pass = new String(this.viewIniciarSesion.jPassword.getPassword());
         String nivel = "";
         String sql = "SELECT * FROM admin WHERE usuario = '" + us + "'&& contrasena='" + pass + "'";
         conection.executeQuery(sql);
@@ -88,9 +88,9 @@ public class ControllerLogin implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == this.viewIniciarSecion.jbtnIngresar) {
-            String us = this.viewIniciarSecion.jtfUser.getText();
-            String pass = new String(this.viewIniciarSecion.jPassword.getPassword());
+        if (ae.getSource() == this.viewIniciarSesion.jbtnIngresar) {
+            String us = this.viewIniciarSesion.jtfUser.getText();
+            String pass = new String(this.viewIniciarSesion.jPassword.getPassword());
             Entrar(us, pass);
         }
     }

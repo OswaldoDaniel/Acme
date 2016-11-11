@@ -52,7 +52,7 @@ public class ControllerMain implements ActionListener {
     ViewProductos viewProductos;
     
     ModelLogin modelLogin;
-    ViewIniciarSesion viewIniciarSecion;
+    ViewIniciarSecion viewIniciarSecion;
     
     ModelVentas modelVentas;
     ViewVentas viewVentas;
@@ -60,7 +60,7 @@ public class ControllerMain implements ActionListener {
     ModelUsuario modelUsuario;
     ViewUsuario viewUsuario;
     
-    public ControllerMain(ModelMain modelMain, ModelClientes modelClientes, ModelCompras modelCompras,ModelProductos modelProductos,ModelLogin modelLogin, ModelVentas modelVentas,ModelUsuario modelUsuario, ViewMain viewMain,ViewClientes viewClientes,viewCompras viewCompras,ViewProductos viewProductos, ViewIniciarSesion viewIniciarSecion, ViewVentas viewVentas, ViewUsuario viewUsuario) {
+    public ControllerMain(ModelMain modelMain, ModelClientes modelClientes, ModelCompras modelCompras,ModelProductos modelProductos,ModelLogin modelLogin, ModelVentas modelVentas,ModelUsuario modelUsuario, ViewMain viewMain,ViewClientes viewClientes,viewCompras viewCompras,ViewProductos viewProductos, ViewIniciarSecion viewIniciarSecion, ViewVentas viewVentas, ViewUsuario viewUsuario) {
         this.viewMain = viewMain;
         this.modelMain = modelMain;
         this.modelProductos = modelProductos;
@@ -174,7 +174,7 @@ public class ControllerMain implements ActionListener {
         this.viewMain.jMenuItemProductos.addActionListener(this);
         this.viewMain.jMenuItemIniciar.addActionListener(this);
         this.viewMain.jMenuItemUsuario.addActionListener(this);
-        this.controllerLogin.viewIniciarSecion.jbtnIngresar.addActionListener(this);
+        this.controllerLogin.viewIniciarSesion.jbtnIngresar.addActionListener(this);
         this.viewMain.jmiVentas.addActionListener(this);
         this.viewMain.jmiCliente.addActionListener(this);
         this.viewMain.jmiCompras.addActionListener(this);
@@ -203,7 +203,7 @@ public class ControllerMain implements ActionListener {
     }
 
     public void actionPerfomedLogin() {
-        this.viewMain.setContentPane(controllerLogin.viewIniciarSecion);
+        this.viewMain.setContentPane(controllerLogin.viewIniciarSesion);
 
         this.viewMain.revalidate();
         this.viewMain.repaint();
@@ -254,8 +254,8 @@ public class ControllerMain implements ActionListener {
     }
 
     public void actionPerfomedIniCerr() {
-        String us = this.controllerLogin.viewIniciarSecion.jtfUser.getText();
-        String pass = new String(this.controllerLogin.viewIniciarSecion.jPassword.getPassword());
+        String us = this.controllerLogin.viewIniciarSesion.jtfUser.getText();
+        String pass = new String(this.controllerLogin.viewIniciarSesion.jPassword.getPassword());
         String niv = "";
         String est1 = "";
         String sql = "SELECT * FROM admin WHERE usuario = '" + us + "'&& contrasena='" + pass + "'";
@@ -273,7 +273,7 @@ public class ControllerMain implements ActionListener {
             this.viewMain.jmiCompras.setEnabled(true);
             this.viewMain.jmiProveedores.setEnabled(true);
             //this.controllerVenta.viewVentas.JLVendedor.setText(us);
-            this.controllerLogin.viewIniciarSecion.setVisible(false);
+            this.controllerLogin.viewIniciarSesion.setVisible(false);
             this.viewMain.setVisible(true);
             cerrarSesionText();
             fecha();
@@ -286,7 +286,7 @@ public class ControllerMain implements ActionListener {
             this.viewMain.jmiProveedores.setEnabled(false);
             this.viewMain.jmiVentas.setEnabled(true);
             //this.controllerVenta.viewVentas.JLVendedor.setText(us);
-            this.controllerLogin.viewIniciarSecion.setVisible(false);
+            this.controllerLogin.viewIniciarSesion.setVisible(false);
             this.viewMain.setVisible(true);
             cerrarSesionText();
             fecha();
@@ -312,8 +312,8 @@ public class ControllerMain implements ActionListener {
         this.viewMain.jmiCliente.setEnabled(false);
         this.viewMain.jmiCompras.setEnabled(false);
         this.viewMain.jmiProveedores.setEnabled(false);
-        this.controllerLogin.viewIniciarSecion.setVisible(false);
-        this.controllerLogin.viewIniciarSecion.setVisible(false);
+        this.controllerLogin.viewIniciarSesion.setVisible(false);
+        this.controllerLogin.viewIniciarSesion.setVisible(false);
         this.controllerProducto.viewProductos.setVisible(false);
         this.controllerUsuario.viewUsuario.setVisible(false);
         this.controllerVenta.viewVentas.setVisible(false);

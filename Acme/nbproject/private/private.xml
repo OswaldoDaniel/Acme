@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/models/ModelClientes.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/views/viewCompras.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/views/ViewProveedores.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/views/ViewProductos.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/controllers/ControllerCompras.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/controllers/ControllerProveedores.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/controllers/ControllerProductos.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/views/ViewClientes.java</file>
-            <file>file:/C:/Users/WINDOWS/Desktop/Acme/src/controllers/ControllerClientes.java</file>
+            <file>file:/C:/Users/usuario/Desktop/github/Acme/Acme/src/controllers/ControllerCompras.java</file>
+            <file>file:/C:/Users/usuario/Desktop/github/Acme/Acme/src/views/ViewVentas.java</file>
+            <file>file:/C:/Users/usuario/Desktop/github/Acme/Acme/src/views/viewCompras.java</file>
         </group>
     </open-files>
 </project-private>
