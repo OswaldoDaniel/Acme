@@ -7,7 +7,7 @@ package views;
 
 /**
  *
- * @author RoseLandjlord
+ * @author L.A.M.M#13
  */
 public class ViewIniciarSesion extends javax.swing.JPanel {
 
