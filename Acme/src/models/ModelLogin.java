@@ -48,20 +48,20 @@ public class ModelLogin {
                 nivel = rs.getString("nivel");
                 estado = rs.getString("estado");
             }
-            if(opcion.equals("Salir")){
-                JOptionPane.showMessageDialog(null, "Sesion Cerrada ");
-                inicio = false;
-                admin  = false;
+            if (nivel.equals("administrador") && estado.equals("Activo") && opcion.equals("Iniciar")) {
+                JOptionPane.showMessageDialog(null, "Bienvenid@  " + us);
+                inicio = true;
+                admin = true;
             } else if (nivel.equals("vendedor") && estado.equals("Activo") && opcion.equals("Iniciar")) {
                 JOptionPane.showMessageDialog(null, "Bienvenid@  " + us);
                 inicio = true;
                 admin  = false;
-            } else if (nivel.equals("administrador") && estado.equals("Activo") && opcion.equals("Iniciar")) {
-                JOptionPane.showMessageDialog(null, "Bienvenid@  " + us);
-                inicio = true;
-                admin = true;
-            } else   {
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña no valido\nVuelve a intentar");
+            } else if(opcion.equals("Salir")){
+                JOptionPane.showMessageDialog(null, "Sesion Cerrada ");
+                inicio = false;
+                admin  = false;
+            }else {
+                JOptionPane.showMessageDialog(null, "Vuelve a intentar");
                 inicio = false;
             }
         } catch (SQLException ex) {

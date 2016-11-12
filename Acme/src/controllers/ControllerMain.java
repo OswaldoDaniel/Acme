@@ -5,19 +5,40 @@
  */
 package controllers;
 
-
+/*import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+import models.*;
+import views.*;*/
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import models.ModelMain;
 import sax.DBConnection;
 import views.ViewMain;
+import views.*;
+import models.*;
+import views.ViewUsuario;
+import views.ViewIniciarSesion;
+import views.viewCompras;
+import views.ViewClientes;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
- * @author L.A.M.M#13
+ * @author usuario
  */
 public class ControllerMain implements ActionListener {
    
+    private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     private ModelMain modelMain;
     private ViewMain viewMain;
     Object modules[];
@@ -108,26 +129,26 @@ public class ControllerMain implements ActionListener {
     
     public void modificarSesion() {
         if (this.controllerLogin.modelLogin.inicio == true && this.controllerLogin.modelLogin.admin == true) {
-            this.viewMain.jMenuItemUsuario.setEnabled(false);
-            this.viewMain.jMenuItemProductos.setEnabled(false);
-            this.viewMain.jmiVentas.setEnabled(false);
-            this.viewMain.jmiCliente.setEnabled(false);
-            this.viewMain.jmiCompras.setEnabled(false);
-            this.viewMain.jmiProveedores.setEnabled(false);
+            this.viewMain.jMenuItemUsuario.setEnabled(true);
+            this.viewMain.jMenuItemProductos.setEnabled(true);
+            this.viewMain.jmiVentas.setEnabled(true);
+            this.viewMain.jmiCliente.setEnabled(true);
+            this.viewMain.jmiCompras.setEnabled(true);
+            this.viewMain.jmiProveedores.setEnabled(true);
         } else if (this.controllerLogin.modelLogin.inicio == true && this.controllerLogin.modelLogin.admin == false) {
-            this.viewMain.jMenuItemUsuario.setEnabled(true);
-            this.viewMain.jMenuItemProductos.setEnabled(false);
-            this.viewMain.jmiVentas.setEnabled(false);
-            this.viewMain.jmiCliente.setEnabled(false);
-            this.viewMain.jmiCompras.setEnabled(false);
-            this.viewMain.jmiProveedores.setEnabled(false);
-        } else /*if (this.controllerLogin.modelLogin.inicio == false && this.controllerLogin.modelLogin.admin == false)*/{
-            this.viewMain.jMenuItemUsuario.setEnabled(true);
+            this.viewMain.jMenuItemUsuario.setEnabled(false);
             this.viewMain.jMenuItemProductos.setEnabled(true);
             this.viewMain.jmiCliente.setEnabled(true);
             this.viewMain.jmiCompras.setEnabled(true);
             this.viewMain.jmiProveedores.setEnabled(true);
             this.viewMain.jmiVentas.setEnabled(true);
+        } else if (this.controllerLogin.modelLogin.inicio == false && this.controllerLogin.modelLogin.admin == false){
+            this.viewMain.jMenuItemUsuario.setEnabled(false);
+            this.viewMain.jMenuItemProductos.setEnabled(false);
+            this.viewMain.jmiCliente.setEnabled(false);
+            this.viewMain.jmiCompras.setEnabled(false);
+            this.viewMain.jmiProveedores.setEnabled(false);
+            this.viewMain.jmiVentas.setEnabled(false);
         }
     }
 

@@ -29,7 +29,7 @@ public class ControllerVentas implements ActionListener {
     private DBConnection conection = new DBConnection(3306, "localhost", "acme", "root", "");
     Connection cn;
     PreparedStatement ps;
-    static Statement s;
+    Statement s;
     ResultSet rs;
     ResultSetMetaData rsm;
     
