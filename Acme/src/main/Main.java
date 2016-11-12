@@ -51,7 +51,7 @@ public class Main {
 
         ViewIniciarSesion viewIniciarSecion = new ViewIniciarSesion();
         ModelLogin modelLogin = new ModelLogin();
-        ControllerLogin controllerLogin = new ControllerLogin(modelLogin, viewIniciarSecion, viewProductos);
+        ControllerLogin controllerLogin = new ControllerLogin(modelLogin, viewIniciarSecion);
 
         ModelUsuario modelUsuario = new ModelUsuario();
         ViewUsuario viewUsuario = new ViewUsuario();
