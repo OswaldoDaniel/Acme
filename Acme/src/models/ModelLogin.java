@@ -5,86 +5,67 @@
  */
 package models;
 
-import sax.DBConnection;
-
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author RoseLandjlord
  */
 public class ModelLogin {
-     private DBConnection conection = new DBConnection(3306,"localhost", "acme", "root", "");
-     private String us;
-     private String pass;
-     private String tipo;
-
-    /**
-     * @return the conection
-     */
-    public DBConnection getConection() {
-        return conection;
-    }
-
-    /**
-     * @param conection the conection to set
-     */
-    public void setConection(DBConnection conection) {
-        this.conection = conection;
-    }
-
-    /**
-     * @return the us
-     */
+    Connection cn;
+    private String us;
+    private String pass;
+    public boolean inicio;
+    public boolean admin;
+    
     public String getUs() {
         return us;
     }
-
-    /**
-     * @param us the us to set
-     */
+    
     public void setUs(String us) {
         this.us = us;
     }
 
-    /**
-     * @return the pass
-     */
     public String getPass() {
         return pass;
     }
 
-    /**
-     * @param pass the pass to set
-     */
     public void setPass(String pass) {
         this.pass = pass;
     }
-     public void initValues(){
-        conection.executeQuery("SELECT usuario,contrasena FROM admin;");
-        conection.moveNext();
-        setValues();
-    }
     
-    
-    public void setValues(){
-         this.us= conection.getString("usuario");
-        this.pass = conection.getString("contrasena");
-        
-        
+    public void Entrar(String us, String pass, String opcion) {
+        try {
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
+            String nivel = "";
+            String estado = "";
+            String sql = "SELECT * FROM admin WHERE usuario = '" + us + "'&& contrasena='" + pass + "'";
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                nivel = rs.getString("nivel");
+                estado = rs.getString("estado");
+            }
+            if(opcion.equals("Salir")){
+                JOptionPane.showMessageDialog(null, "Sesion Cerrada ");
+                inicio = false;
+                admin  = false;
+            } else if (nivel.equals("vendedor") && estado.equals("Activo") && opcion.equals("Iniciar")) {
+                JOptionPane.showMessageDialog(null, "Bienvenid@  " + us);
+                inicio = true;
+                admin  = false;
+            } else if (nivel.equals("administrador") && estado.equals("Activo") && opcion.equals("Iniciar")) {
+                JOptionPane.showMessageDialog(null, "Bienvenid@  " + us);
+                inicio = true;
+                admin = true;
+            } else   {
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña no valido\nVuelve a intentar");
+                inicio = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-    
-    
 }

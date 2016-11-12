@@ -45,9 +45,7 @@ public class ViewIniciarSesion extends javax.swing.JPanel {
         jLabel2.setText("Password");
 
         jbtnIngresar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jbtnIngresar.setText("Login");
-
-        jPassword.setText("jPasswordField1");
+        jbtnIngresar.setText("Iniciar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

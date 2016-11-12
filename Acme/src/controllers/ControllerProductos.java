@@ -64,19 +64,6 @@ public class ControllerProductos implements ActionListener{
         viewProductos.jtfExistencia.setText(modelProductos.getExistencia());
     }
 
-    /*public static void copiarArchivo(String origen, String destino) {
-        try {
-            Path rutaOrigen = Paths.get(origen);
-            Path rutaDestino = Paths.get(destino);
-            CopyOption[] opciones = new CopyOption[]{
-                StandardCopyOption.REPLACE_EXISTING,
-                StandardCopyOption.COPY_ATTRIBUTES
-            };
-            Files.copy(rutaOrigen, rutaDestino, opciones);
-        } catch (IOException err) {
-            JOptionPane.showMessageDialog(null, "No hay archivo seleccionado");
-        }
-    }*/
 
     public void bloquearDesbloquear(boolean todos) {
         this.viewProductos.jbtnAgregar.setEnabled(todos);
