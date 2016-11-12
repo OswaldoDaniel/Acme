@@ -19,7 +19,7 @@ import views.ViewUsuario;
 
 /**
  *
- * @author RoseLandjlord
+ * @author L.A.M.M#13
  */
 public class ControllerUsuario implements ActionListener {
     Connection conexion;
