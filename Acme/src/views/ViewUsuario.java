@@ -43,8 +43,8 @@ public class ViewUsuario extends javax.swing.JPanel {
         jtUsuario = new javax.swing.JTable();
         jbntPrimero = new javax.swing.JButton();
         jbtnAnterior = new javax.swing.JButton();
-        jComboBoxNivel = new javax.swing.JComboBox<>();
-        jComboBoxEstado = new javax.swing.JComboBox<>();
+        jComboBoxNivel = new javax.swing.JComboBox<String>();
+        jComboBoxEstado = new javax.swing.JComboBox<String>();
         jbtnSiguiente = new javax.swing.JButton();
         jbtnUltimo = new javax.swing.JButton();
         jbtnAgregar = new javax.swing.JButton();
@@ -105,9 +105,9 @@ public class ViewUsuario extends javax.swing.JPanel {
 
         jbtnAnterior.setText("<");
 
-        jComboBoxNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "administrador", "vendedor" }));
+        jComboBoxNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "administrador", "vendedor" }));
 
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activo", "Inactivo" }));
 
         jbtnSiguiente.setText(">");
 
@@ -120,8 +120,6 @@ public class ViewUsuario extends javax.swing.JPanel {
         jbtnEditar.setText("Editar");
 
         jLabel7.setText("Contraseña");
-
-        jPassword.setText("jPasswordField1");
 
         jLabel8.setText("Usuario");
 
@@ -151,7 +149,7 @@ public class ViewUsuario extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(178, 178, 178)
                         .addComponent(jrbSpecific)
-                        .addGap(0, 20, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
