@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import views.ViewVentas;
@@ -47,17 +46,30 @@ public class ControllerVentas implements ActionListener {
 
     public void Guardar() {
         try {
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
             String producto = this.viewVentas.jtfProducto.getText();
-            String fecha = this.viewVentas.jtfFecha.getText();
             String cliente = this.viewVentas.jtfCliente.getText();
-            this.modelVentas.setCantidad(Integer.parseInt(this.viewVentas.jtfCantidad.getText()));
-            this.modelVentas.setTotalPrecProd(Integer.parseInt(this.viewVentas.jtfTotPrecProd.getText()));
-            String precio = this.viewVentas.jtfPrecio.getText();
-            String id_venta = JOptionPane.showInputDialog("deme el numero de la venta", "");
-            String sql = "insert into ventas(id_venta,fecha,id_cliente,subtotal,iva,total) values ('" + id_venta + "','" + fecha + "','" + cliente + "','" + this.modelVentas.gSubtotal() + "','16','" + this.modelVentas.gTotal() + "');";
-            String sql2 = "insert into detalle_venta(id_venta,id_producto,cantidad,total_producto,precio) values (" + "'" + id_venta + "','" + producto + "','" + this.modelVentas.getCantidad() + "','" + this.modelVentas.getTotalPrecProd() + "','"+precio+"');";
-            conection.executeUpdate(sql);
-            conection.executeUpdate(sql2);
+            String fecha = this.viewVentas.jtfFecha.getText();
+            int cantidad = Integer.parseInt(this.viewVentas.jtfCantidad.getText());
+            s = cn.createStatement();
+            rs = s.executeQuery("select precio from productos where id_producto ='"+producto+"'");
+            float precio = 0;
+            while(rs.next()){
+                precio = rs.getFloat("precio");
+            }
+            int iva = 16;
+            float subtotal = cantidad * precio;
+            float tot = subtotal;
+            float total = (subtotal*(iva/100)) + subtotal;
+            String sql = "insert into ventas(fecha,id_cliente,subtotal,iva,total) values ('"+"','"+fecha+"','"+cliente+"','"+subtotal+"','"+iva+"','"+total+"');";
+            s.executeUpdate(sql);
+            ResultSet rs2 = s.executeQuery("select id_compra from compras compras where subtotal ='"+subtotal+"' and total='"+total+"' and fecha='"+fecha+"'");
+            int id = 0;
+            while(rs2.next()){
+                id = rs2.getInt("id_compra");
+            }
+            String sql2 = "insert into detalle_venta(id_venta,id_producto,cantidad,total_producto,precio) values ("+"'"+id+"','"+producto+"','"+cantidad+"','"+tot+"','"+precio+"');";
+            s.executeUpdate(sql2);
         } catch (Exception err) {
             JOptionPane.showMessageDialog(this.viewVentas, "No hay objeto seleccionado");
         }
@@ -105,7 +117,6 @@ public class ControllerVentas implements ActionListener {
             this.viewVentas.jtfCliente.setText("");
             this.viewVentas.jtfFecha.setText("");
             this.viewVentas.jtfProducto.setText("");
-            this.viewVentas.jtfTotPrecProd.setText("");
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
         }
@@ -118,7 +129,6 @@ public class ControllerVentas implements ActionListener {
             this.viewVentas.jtfCliente.setText("");
             this.viewVentas.jtfFecha.setText("");
             this.viewVentas.jtfProducto.setText("");
-            this.viewVentas.jtfTotPrecProd.setText("");
         } catch (Exception err) {
             JOptionPane.showMessageDialog(null, "No hay producto seleccionado");
         }

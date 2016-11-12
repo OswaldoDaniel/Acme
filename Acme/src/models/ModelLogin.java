@@ -41,7 +41,7 @@ public class ModelLogin {
             cn = DriverManager.getConnection("jdbc:mysql://localhost/acme", "root", "");
             String nivel = "";
             String estado = "";
-            String sql = "SELECT * FROM admin WHERE usuario = '" + us + "'&& contrasena='" + pass + "'";
+            String sql = "SELECT * FROM admin WHERE usuario = '" + us + "'&& contrasena='(MD5('"+pass+"'))'";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
