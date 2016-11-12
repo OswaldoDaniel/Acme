@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
- * @author RoseLandjlord
+ * @author L.A.M.M#13
  */
 public class ModelLogin {
     Connection cn;

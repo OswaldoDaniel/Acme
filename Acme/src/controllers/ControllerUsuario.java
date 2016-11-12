@@ -6,7 +6,6 @@
  */
 package controllers;
 
-//import static controllers.ControllerProducto.copiarArchivo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -20,7 +19,7 @@ import views.ViewUsuario;
 
 /**
  *
- * @author RoseLandjlord
+ * @author L.A.M.M#13
  */
 public class ControllerUsuario implements ActionListener {
     Connection conexion;
@@ -78,8 +77,7 @@ public class ControllerUsuario implements ActionListener {
             String contrasena = this.viewUsuario.jPassword.getText();
             this.viewUsuario.jComboBoxEstado.getSelectedItem();
             this.viewUsuario.jComboBoxNivel.getSelectedItem();
-            String sql = "insert into admin(nombre,apellido_pat,apellido_mat,usuario,contrasena,nivel,estado) values ("+"'"+nombre+"','"+ap_pat+"','"+ ap_mat+"','"+usuario+"',',(MD5('"+contrasena+"')),','"+this.viewUsuario.jComboBoxNivel.getSelectedItem()+"','"+this.viewUsuario.jComboBoxEstado.getSelectedItem()+"');";
-
+            String sql = "insert into admin(nombre,apellido_pat,apellido_mat,usuario,contrasena,nivel,estado) values (" + "'" + nombre + "','" + ap_pat + "','" + ap_mat + "','" + usuario + "',(MD5('"+contrasena+"')),'" + this.viewUsuario.jComboBoxNivel.getSelectedItem() + "','" + this.viewUsuario.jComboBoxEstado.getSelectedItem() + "');";
             System.out.println("Nombre " + nombre);
             System.out.println("SQL " + sql);
 

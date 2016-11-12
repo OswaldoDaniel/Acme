@@ -7,7 +7,7 @@ package models;
 import sax.DBConnection;
 /**
  *
- * @author RoseLandjlord
+ * @author L.A.M.M#13
  */
 public class ModelUsuario {
     private DBConnection conection = new DBConnection(3306,"localhost", "acme", "root", "");
